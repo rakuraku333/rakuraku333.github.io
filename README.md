@@ -1,7 +1,8 @@
 # rakudotcom
 
 Sitio personal de raku: bitácora, portfolio y un hub de herramientas simples.
-HTML, CSS y JavaScript vanilla — sin frameworks, sin build, sin backend.
+Hecho a mano con los fundamentos de la web: HTML, CSS y JavaScript.
+Vanilla a propósito — un sitio personal no necesita más: clonás, abrís `index.html` y funciona.
 
 ![Bitácora](capturas/bitacora.png)
 
