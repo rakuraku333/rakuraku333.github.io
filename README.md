@@ -22,7 +22,7 @@ Sin dependencias: clonar y abrir `index.html` en el navegador. Todo funciona via
 
 1. Escribir un borrador en el editor del blog (queda en localStorage, con insignia "borrador").
 2. Tocar **Exportar para publicar**: se descarga `entradas-publicadas.js` con todo el contenido.
-3. Reemplazar `blog/datos/entradas-publicadas.js` con ese archivo y commitear. Al recargar, el borrador local se limpia solo.
+3. Correr `./publicar.sh "bitacora: mi nota"` — mueve el export al repo, commitea y pushea (o hacerlo a mano: reemplazar `blog/datos/entradas-publicadas.js` y commitear). Al recargar el blog, el borrador local se limpia solo.
 
 ## Estructura y convenciones
 
