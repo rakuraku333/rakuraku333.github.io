@@ -14,7 +14,6 @@ const detalleFecha = document.getElementById('detalle-fecha');
 const detalleContenido = document.getElementById('detalle-contenido');
 const botonEliminarEntrada = document.getElementById('boton-eliminar-entrada');
 const botonExportar = document.getElementById('boton-exportar');
-const notaEntradaPublicada = document.getElementById('detalle-nota-publicada');
 
 function leerFormularioEntrada() {
   return {
@@ -96,7 +95,6 @@ function renderizarDetalle(entrada, esBorrador) {
   botonEliminarEntrada.dataset.idEntrada = entrada.id;
   // Las publicadas no se eliminan desde el navegador: se editan en el repo.
   botonEliminarEntrada.hidden = !esBorrador;
-  notaEntradaPublicada.hidden = esBorrador;
 }
 
 function mostrarVistaLista() {
