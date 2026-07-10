@@ -119,6 +119,12 @@
   text-decoration: none;
 }
 
+/* El display de arriba pisa al atributo hidden (misma lección que #vista-lista
+   en el blog): esta regla devuelve la prioridad al atributo. */
+.enlace-seguir-leyendo[hidden] {
+  display: none;
+}
+
 .enlace-seguir-leyendo:hover {
   text-decoration: underline;
 }
