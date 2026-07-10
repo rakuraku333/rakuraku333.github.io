@@ -60,16 +60,22 @@ function crearBurbuja(entrada) {
   return item;
 }
 
-// Con las burbujas ya en el DOM se puede medir cuáles desbordan el recorte del CSS:
-// esas muestran su "seguir leyendo"; a las cortas se les quita el recorte.
+// Con las burbujas ya en el DOM se mide cuáles desbordan el recorte del CSS: se
+// compara la altura recortada contra la altura real sin recorte (comparar contra
+// scrollHeight daba falsos positivos por redondeo de píxeles, p. ej. con emojis).
 function mostrarSeguirLeyendoDondeHagaFalta() {
   for (const burbuja of hiloBitacora.querySelectorAll('.burbuja-entrada')) {
     const contenido = burbuja.querySelector('.contenido-burbuja');
     const enlaceSeguir = burbuja.querySelector('.enlace-seguir-leyendo');
-    if (contenido.scrollHeight > contenido.clientHeight + 1) {
+
+    const alturaRecortada = contenido.clientHeight;
+    contenido.classList.remove('recortada');
+    const alturaCompleta = contenido.clientHeight;
+
+    // Solo si el recorte esconde contenido de verdad se restaura y se ofrece el link.
+    if (alturaCompleta > alturaRecortada + 2) {
+      contenido.classList.add('recortada');
       enlaceSeguir.hidden = false;
-    } else {
-      contenido.classList.remove('recortada');
     }
   }
 }
