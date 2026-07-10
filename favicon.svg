@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- Torii de la marca raku, mismo trazo y rojo (--torii) que el isotipo del navbar. -->
+  <g fill="#BE3A34">
+    <rect x="2" y="6" width="44" height="5" rx="1" />
+    <rect x="22" y="11" width="4" height="6" />
+    <rect x="7" y="17" width="34" height="4" rx="1" />
+    <rect x="11" y="11" width="5" height="31" rx="1" />
+    <rect x="32" y="11" width="5" height="31" rx="1" />
+  </g>
+</svg>

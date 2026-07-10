@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="raku — bitácora personal: notas de lo que construyo, aprendo y pienso en el camino.">
-  <title>raku — bitácora</title>
+  <meta name="description" content="raku — desarrollador y diseñador autodidacta: proyectos, apps simples y bitácora personal.">
+  <title>raku — proyectos y bitácora</title>
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta property="og:title" content="raku — proyectos y bitácora">
+  <meta property="og:description" content="Herramientas simples que hacen una cosa bien, y la bitácora de lo que voy aprendiendo en el camino.">
+  <meta property="og:image" content="https://rakuraku333.github.io/capturas/bitacora.png">
 
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -33,13 +38,48 @@
       <div class="enlaces-nav">
         <a href="proyectos/index.html">proyectos</a>
         <a href="sobre-mi/index.html">sobre mí</a>
+        <a class="cta-nav" href="mailto:iniakigp@gmail.com">hablemos</a>
       </div>
     </nav>
 
     <main>
       <section class="portada">
-        <h1>Soy raku.</h1>
-        <p>Construyo herramientas simples y esta es mi bitácora: notas de lo que voy haciendo, aprendiendo y pensando en el camino.</p>
+        <svg class="isotipo-torii torii-portada" viewBox="0 0 48 48" width="56" height="56" aria-hidden="true">
+          <rect x="2" y="6" width="44" height="5" rx="1" />
+          <rect x="22" y="11" width="4" height="6" />
+          <rect x="7" y="17" width="34" height="4" rx="1" />
+          <rect x="11" y="11" width="5" height="31" rx="1" />
+          <rect x="32" y="11" width="5" height="31" rx="1" />
+        </svg>
+        <h1>Diseño y construyo herramientas simples, que hacen una cosa bien.</h1>
+        <p>Soy <strong>raku</strong>, desarrollador y diseñador autodidacta. Acá viven mis proyectos y la bitácora de lo que voy aprendiendo en el camino.</p>
+        <div class="acciones-portada">
+          <a class="boton-principal" href="proyectos/index.html">Ver proyectos</a>
+          <a class="boton-secundario" href="mailto:iniakigp@gmail.com">Hablemos</a>
+        </div>
+      </section>
+
+      <section class="seccion" aria-labelledby="titulo-destacados">
+        <h2 id="titulo-destacados">Proyectos destacados</h2>
+        <div class="lista-destacados">
+          <a class="tarjeta-destacada" href="https://pilates-demo.onrender.com" target="_blank" rel="noopener">
+            <img src="capturas/pilates-demo.png" alt="Pilates Base: biblioteca de ejercicios con buscador y filtros" loading="lazy">
+            <div class="texto-destacada">
+              <h3>Pilates Base</h3>
+              <p>Gestión de un estudio de pilates: alumnos, rutinas y una biblioteca de 328 ejercicios. Next.js, SQLite y Docker.</p>
+              <span class="etiqueta">demo en vivo — tarda ~1 min en despertar</span>
+            </div>
+          </a>
+          <a class="tarjeta-destacada" href="https://github.com/rakuraku333/rakuraku333.github.io" target="_blank" rel="noopener">
+            <img src="capturas/proyectos.png" alt="El hub de apps: gastos, blog, hábitos y galería" loading="lazy">
+            <div class="texto-destacada">
+              <h3>Este sitio y sus apps</h3>
+              <p>Cuatro herramientas hechas a mano con HTML, CSS y JavaScript puros — sin frameworks ni build. Código abierto.</p>
+              <span class="etiqueta">ver el código en GitHub</span>
+            </div>
+          </a>
+        </div>
+        <p class="ver-todos"><a href="proyectos/index.html">ver todos los proyectos →</a></p>
       </section>
 
       <section class="seccion" aria-labelledby="titulo-bitacora">
@@ -51,6 +91,10 @@
 
     <footer class="pie">
       <span>raku · 2026</span>
+      <nav class="contacto-pie" aria-label="Contacto">
+        <a href="mailto:iniakigp@gmail.com">iniakigp@gmail.com</a>
+        <a href="https://github.com/rakuraku333" target="_blank" rel="noopener">github</a>
+      </nav>
     </footer>
   </div>
 </body>
