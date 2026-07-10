@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hábitos — raku</title>
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/componentes.css">
+
+  <!-- El orden importa: cada archivo usa lo que definen los anteriores. -->
+  <script src="js/constantes.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/logica.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <div class="contenedor">
+    <nav class="navegacion">
+      <a class="marca-nav" href="../index.html">
+        <svg class="isotipo-torii" viewBox="0 0 48 48" width="22" height="22" aria-hidden="true">
+          <rect x="2" y="6" width="44" height="5" rx="1" />
+          <rect x="22" y="11" width="4" height="6" />
+          <rect x="7" y="17" width="34" height="4" rx="1" />
+          <rect x="11" y="11" width="5" height="31" rx="1" />
+          <rect x="32" y="11" width="5" height="31" rx="1" />
+        </svg>
+        <span>raku</span>
+      </a>
+      <div class="enlaces-nav">
+        <a href="../proyectos/index.html">proyectos</a>
+        <a href="../sobre-mi/index.html">sobre mí</a>
+      </div>
+    </nav>
+
+    <header class="encabezado">
+      <h1>hábitos</h1>
+    </header>
+    <p class="subtitulo">Seguimiento de rachas diarias.</p>
+
+    <main>
+      <p id="mensaje" class="mensaje" role="alert" hidden></p>
+
+      <section class="tarjeta" aria-labelledby="titulo-nuevo-habito">
+        <h2 id="titulo-nuevo-habito">Nuevo hábito</h2>
+        <form id="formulario-habito" novalidate>
+          <div class="fila-campos">
+            <div class="campo">
+              <label for="campo-nombre">Nombre</label>
+              <input type="text" id="campo-nombre" placeholder="Leer, meditar, caminar…">
+            </div>
+            <button type="submit" class="boton-principal">Agregar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="tarjeta" aria-labelledby="titulo-habitos">
+        <h2 id="titulo-habitos">Hábitos</h2>
+        <p id="aviso-sin-habitos" class="aviso-vacio" hidden></p>
+        <ul id="lista-habitos" class="lista-habitos"></ul>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

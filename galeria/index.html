@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>galería — raku</title>
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/componentes.css">
+
+  <!-- El orden importa: cada archivo usa lo que definen los anteriores. -->
+  <script src="js/constantes.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/logica.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <div class="contenedor">
+    <nav class="navegacion">
+      <a class="marca-nav" href="../index.html">
+        <svg class="isotipo-torii" viewBox="0 0 48 48" width="22" height="22" aria-hidden="true">
+          <rect x="2" y="6" width="44" height="5" rx="1" />
+          <rect x="22" y="11" width="4" height="6" />
+          <rect x="7" y="17" width="34" height="4" rx="1" />
+          <rect x="11" y="11" width="5" height="31" rx="1" />
+          <rect x="32" y="11" width="5" height="31" rx="1" />
+        </svg>
+        <span>raku</span>
+      </a>
+      <div class="enlaces-nav">
+        <a href="../proyectos/index.html">proyectos</a>
+        <a href="../sobre-mi/index.html">sobre mí</a>
+      </div>
+    </nav>
+
+    <header class="encabezado">
+      <h1>galería</h1>
+    </header>
+    <p class="subtitulo">Diseños propios: bocetos, logos, interfaces.</p>
+
+    <main>
+      <p id="mensaje" class="mensaje" role="alert" hidden></p>
+
+      <section class="tarjeta" aria-labelledby="titulo-nueva-imagen">
+        <h2 id="titulo-nueva-imagen">Nueva imagen</h2>
+        <form id="formulario-imagen" novalidate>
+          <div class="fila-campos">
+            <div class="campo">
+              <label for="campo-archivo">Archivo</label>
+              <input type="file" id="campo-archivo" accept="image/*">
+            </div>
+            <div class="campo">
+              <label for="campo-url">o URL de una imagen</label>
+              <input type="url" id="campo-url" placeholder="https://…">
+            </div>
+          </div>
+          <p class="ayuda">Elegí un archivo de hasta 1 MB, o pegá la URL de una imagen ya subida a internet.</p>
+          <div class="fila-campos">
+            <div class="campo">
+              <label for="campo-titulo">Título</label>
+              <input type="text" id="campo-titulo" placeholder="Cómo se llama este diseño">
+            </div>
+            <div class="campo">
+              <label for="campo-etiqueta">Etiqueta</label>
+              <select id="campo-etiqueta"></select>
+            </div>
+            <button type="submit" class="boton-principal">Agregar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="tarjeta" aria-labelledby="titulo-imagenes">
+        <h2 id="titulo-imagenes">Imágenes</h2>
+        <p id="aviso-sin-imagenes" class="aviso-vacio" hidden></p>
+        <ul id="grilla-imagenes" class="grilla-imagenes"></ul>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="dialogo-imagen" class="dialogo-imagen">
+    <div class="contenido-dialogo">
+      <header class="encabezado-dialogo">
+        <h2 id="dialogo-titulo"></h2>
+        <button type="button" id="boton-cerrar-dialogo" class="boton-cerrar" aria-label="Cerrar">×</button>
+      </header>
+      <img id="dialogo-imagen-grande" class="imagen-dialogo" src="" alt="">
+      <footer class="pie-dialogo">
+        <span id="dialogo-detalle" class="detalle-imagen"></span>
+        <button type="button" id="boton-eliminar-imagen" class="boton-eliminar">Eliminar</button>
+      </footer>
+    </div>
+  </dialog>
+</body>
+</html>

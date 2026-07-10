@@ -1,0 +1,12 @@
+/* Paleta cream + torii — compartida por todas las apps del hub (sección 4 del doc).
+   Este archivo debe copiarse idéntico en cada app para mantener la identidad visual. */
+
+:root {
+  --cream-bg: #F7F1E4;    /* fondo general, crema cálido, no blanco puro */
+  --cream-card: #FFFCF6;  /* fondo de tarjetas/cards */
+  --torii: #BE3A34;       /* rojo torii, color de acento principal */
+  --torii-dark: #8C2A25;  /* variante oscura del rojo, para textos/iconos sobre fondos claros */
+  --ink: #2B2420;         /* texto principal, marrón oscuro cálido en vez de negro puro */
+  --ink-soft: #7A7267;    /* texto secundario / descripciones */
+  --line: #E4DBC8;        /* bordes finos, 0.5px */
+}

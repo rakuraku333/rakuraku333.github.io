@@ -1,0 +1,203 @@
+/* Componentes visuales: navegación del hub, tarjetas, botones, campos, tabla y mensajes.
+   Sin sombras ni gradientes: separación con bordes finos, según los principios del doc. */
+
+.isotipo-torii {
+  fill: var(--torii);
+}
+
+/* Barra de navegación del hub, compartida por todas las páginas del sitio. */
+.navegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding-bottom: 16px;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.marca-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.enlaces-nav {
+  display: flex;
+  gap: 16px;
+}
+
+.enlaces-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.enlaces-nav a:hover {
+  color: var(--torii-dark);
+  text-decoration: underline;
+}
+
+.enlaces-nav a[aria-current="page"] {
+  color: var(--torii-dark);
+  font-weight: 600;
+}
+
+.tarjeta {
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.tarjeta h2 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+input,
+select {
+  font: inherit;
+  color: var(--ink);
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+input:focus,
+select:focus {
+  outline: 1px solid var(--torii);
+  outline-offset: 1px;
+}
+
+/* El rojo torii se usa como acento: este botón es el único fondo rojo de la pantalla. */
+.boton-principal {
+  font: inherit;
+  font-weight: 600;
+  color: var(--cream-card);
+  background-color: var(--torii);
+  border: 0.5px solid var(--torii);
+  border-radius: 8px;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+.boton-principal:hover {
+  background-color: var(--torii-dark);
+  border-color: var(--torii-dark);
+}
+
+.boton-secundario {
+  font: inherit;
+  color: var(--ink);
+  background-color: transparent;
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.boton-secundario:hover {
+  border-color: var(--ink-soft);
+}
+
+.boton-eliminar {
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--torii-dark);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.boton-eliminar:hover {
+  text-decoration: underline;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  padding: 0 12px 8px 0;
+  border-bottom: 0.5px solid var(--line);
+}
+
+td {
+  padding: 10px 12px 10px 0;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.alinear-derecha {
+  text-align: right;
+}
+
+.mensaje {
+  margin: 0;
+  padding: 10px 14px;
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+}
+
+.mensaje-error {
+  color: var(--torii-dark);
+  border-color: var(--torii);
+}
+
+.aviso-vacio {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.nota-filtro {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.total-general {
+  margin: 0 0 12px;
+  color: var(--ink-soft);
+}
+
+.total-general strong {
+  color: var(--ink);
+  font-size: 1.35rem;
+}
+
+.lista-totales {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lista-totales li {
+  display: flex;
+  justify-content: space-between;
+  color: var(--ink-soft);
+}
+
+.lista-totales strong {
+  color: var(--ink);
+  font-weight: 500;
+}

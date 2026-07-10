@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>blog — raku</title>
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/componentes.css">
+
+  <!-- El orden importa: cada archivo usa lo que definen los anteriores. -->
+  <script src="datos/entradas-publicadas.js" defer></script>
+  <script src="js/constantes.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/logica.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <div class="contenedor">
+    <nav class="navegacion">
+      <a class="marca-nav" href="../index.html">
+        <svg class="isotipo-torii" viewBox="0 0 48 48" width="22" height="22" aria-hidden="true">
+          <rect x="2" y="6" width="44" height="5" rx="1" />
+          <rect x="22" y="11" width="4" height="6" />
+          <rect x="7" y="17" width="34" height="4" rx="1" />
+          <rect x="11" y="11" width="5" height="31" rx="1" />
+          <rect x="32" y="11" width="5" height="31" rx="1" />
+        </svg>
+        <span>raku</span>
+      </a>
+      <div class="enlaces-nav">
+        <a href="../proyectos/index.html">proyectos</a>
+        <a href="../sobre-mi/index.html">sobre mí</a>
+      </div>
+    </nav>
+
+    <header class="encabezado">
+      <h1>blog</h1>
+    </header>
+    <p class="subtitulo">El taller de la bitácora: borradores, archivo y publicación.</p>
+
+    <main>
+      <p id="mensaje" class="mensaje" role="alert" hidden></p>
+
+      <div id="vista-lista">
+        <section class="tarjeta" aria-labelledby="titulo-nueva-entrada">
+          <h2 id="titulo-nueva-entrada">Nueva entrada</h2>
+          <form id="formulario-entrada" novalidate>
+            <div class="campo">
+              <label for="campo-titulo">Título</label>
+              <input type="text" id="campo-titulo" placeholder="Sobre qué escribís hoy">
+            </div>
+            <div class="campo">
+              <label for="campo-contenido">Contenido</label>
+              <textarea id="campo-contenido" placeholder="Escribí acá…"></textarea>
+              <p class="ayuda">Podés usar **negrita** y *cursiva*. Separá párrafos con una línea en blanco.</p>
+            </div>
+            <button type="submit" class="boton-principal">Guardar borrador</button>
+          </form>
+        </section>
+
+        <section class="tarjeta" aria-labelledby="titulo-entradas">
+          <h2 id="titulo-entradas">Entradas</h2>
+          <p class="ayuda">Las publicadas viven en el repo (<code>datos/entradas-publicadas.js</code>); los borradores, solo en este navegador. Exportar genera ese archivo con todo listo para commitear.</p>
+          <button type="button" id="boton-exportar" class="boton-secundario">Exportar para publicar</button>
+          <p id="aviso-sin-entradas" class="aviso-vacio" hidden></p>
+          <ul id="lista-entradas" class="lista-entradas"></ul>
+        </section>
+      </div>
+
+      <div id="vista-detalle" hidden>
+        <section class="tarjeta">
+          <a class="enlace-volver" href="#">&larr; Volver al listado</a>
+          <article>
+            <h2 id="detalle-titulo" class="detalle-titulo"></h2>
+            <p id="detalle-fecha" class="detalle-fecha"></p>
+            <div id="detalle-contenido" class="detalle-contenido"></div>
+          </article>
+          <p id="detalle-nota-publicada" class="ayuda nota-publicada" hidden>Entrada publicada: para editarla o eliminarla, tocá <code>blog/datos/entradas-publicadas.js</code> en el repo.</p>
+          <button type="button" id="boton-eliminar-entrada" class="boton-eliminar">Eliminar entrada</button>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

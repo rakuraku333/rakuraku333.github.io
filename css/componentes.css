@@ -1,0 +1,129 @@
+/* Componentes de la bitácora: navegación del hub, hilo de entradas y burbujas.
+   Sin sombras ni gradientes: separación con bordes finos, según los principios del doc. */
+
+.isotipo-torii {
+  fill: var(--torii);
+}
+
+/* Barra de navegación del hub, compartida por todas las páginas del sitio. */
+.navegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding-bottom: 16px;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.marca-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.enlaces-nav {
+  display: flex;
+  gap: 16px;
+}
+
+.enlaces-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.enlaces-nav a:hover {
+  color: var(--torii-dark);
+  text-decoration: underline;
+}
+
+.enlaces-nav a[aria-current="page"] {
+  color: var(--torii-dark);
+  font-weight: 600;
+}
+
+/* Hilo de la bitácora: las entradas cuelgan de una línea vertical, la más nueva arriba. */
+.hilo-bitacora {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 20px;
+  border-left: 2px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Burbuja de entrada: tarjeta con la esquina superior izquierda "anclada" al hilo. */
+.burbuja-entrada {
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: 16px;
+  border-top-left-radius: 4px;
+  padding: 20px 24px;
+}
+
+.fecha-burbuja {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.titulo-burbuja {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.titulo-burbuja a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.titulo-burbuja a:hover {
+  color: var(--torii-dark);
+}
+
+.contenido-burbuja {
+  line-height: 1.7;
+}
+
+.contenido-burbuja p {
+  margin: 0 0 12px;
+  max-width: 60ch;
+}
+
+.contenido-burbuja p:last-child {
+  margin-bottom: 0;
+}
+
+/* Las entradas largas se recortan en la portada; el detalle completo vive en el blog.
+   El js mide cuáles desbordan y solo en esas muestra "seguir leyendo". */
+.contenido-burbuja.recortada {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 10;
+  overflow: hidden;
+}
+
+.enlace-seguir-leyendo {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: var(--torii-dark);
+  text-decoration: none;
+}
+
+.enlace-seguir-leyendo:hover {
+  text-decoration: underline;
+}
+
+.aviso-vacio {
+  margin: 0;
+  color: var(--ink-soft);
+}

@@ -1,0 +1,97 @@
+/* Componentes de proyectos: navegación del sitio, tarjetas de apps y etiquetas.
+   Sin sombras ni gradientes: separación con bordes finos, según los principios del doc. */
+
+.isotipo-torii {
+  fill: var(--torii);
+}
+
+/* Barra de navegación del hub, compartida por todas las páginas del sitio. */
+.navegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding-bottom: 16px;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.marca-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.enlaces-nav {
+  display: flex;
+  gap: 16px;
+}
+
+.enlaces-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.enlaces-nav a:hover {
+  color: var(--torii-dark);
+  text-decoration: underline;
+}
+
+.enlaces-nav a[aria-current="page"] {
+  color: var(--torii-dark);
+  font-weight: 600;
+}
+
+.tarjeta {
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* Tarjeta de app: la disponible es un link; las pendientes se ven apagadas. */
+.tarjeta-app {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tarjeta-app h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.tarjeta-app p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+a.tarjeta-app:hover {
+  border-color: var(--torii);
+}
+
+a.tarjeta-app:hover h3 {
+  color: var(--torii-dark);
+}
+
+.tarjeta-proximamente h3,
+.tarjeta-proximamente p {
+  color: var(--ink-soft);
+}
+
+.etiqueta {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+  padding: 2px 8px;
+}

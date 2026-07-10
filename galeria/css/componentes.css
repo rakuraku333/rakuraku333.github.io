@@ -1,0 +1,264 @@
+/* Componentes visuales: navegación del hub, tarjetas, campos, grilla de miniaturas y diálogo.
+   Sin sombras ni gradientes: separación con bordes finos, según los principios del doc. */
+
+.isotipo-torii {
+  fill: var(--torii);
+}
+
+/* Barra de navegación del hub, compartida por todas las páginas del sitio. */
+.navegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding-bottom: 16px;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.marca-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.enlaces-nav {
+  display: flex;
+  gap: 16px;
+}
+
+.enlaces-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.enlaces-nav a:hover {
+  color: var(--torii-dark);
+  text-decoration: underline;
+}
+
+.enlaces-nav a[aria-current="page"] {
+  color: var(--torii-dark);
+  font-weight: 600;
+}
+
+.tarjeta {
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.tarjeta h2 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+input,
+select {
+  font: inherit;
+  color: var(--ink);
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+input:focus,
+select:focus {
+  outline: 1px solid var(--torii);
+  outline-offset: 1px;
+}
+
+.ayuda {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.boton-principal {
+  font: inherit;
+  font-weight: 600;
+  color: var(--cream-card);
+  background-color: var(--torii);
+  border: 0.5px solid var(--torii);
+  border-radius: 8px;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+.boton-principal:hover {
+  background-color: var(--torii-dark);
+  border-color: var(--torii-dark);
+}
+
+.boton-eliminar {
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--torii-dark);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.boton-eliminar:hover {
+  text-decoration: underline;
+}
+
+.mensaje {
+  margin: 0;
+  padding: 10px 14px;
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+}
+
+.mensaje-error {
+  color: var(--torii-dark);
+  border-color: var(--torii);
+}
+
+.aviso-vacio {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+/* Grilla de miniaturas: columnas automáticas según el ancho disponible. */
+.grilla-imagenes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+/* Cada miniatura es un botón: se abre con click o con teclado. */
+.miniatura {
+  display: block;
+  width: 100%;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  color: var(--ink);
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.miniatura:hover {
+  border-color: var(--torii);
+}
+
+.miniatura img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.pie-miniatura {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+}
+
+.titulo-miniatura {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.etiqueta-imagen {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+  padding: 1px 8px;
+}
+
+/* Diálogo de vista ampliada (lightbox). */
+.dialogo-imagen {
+  padding: 0;
+  border: 0.5px solid var(--line);
+  border-radius: 12px;
+  background-color: var(--cream-card);
+  color: var(--ink);
+  max-width: min(720px, 90vw);
+}
+
+/* Fondo detrás del diálogo: --ink al 55% (acá no se pueden usar variables en todos los navegadores). */
+.dialogo-imagen::backdrop {
+  background-color: rgba(43, 36, 32, 0.55);
+}
+
+.contenido-dialogo {
+  padding: 16px 20px;
+}
+
+.encabezado-dialogo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.encabezado-dialogo h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.boton-cerrar {
+  font: inherit;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--ink-soft);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.boton-cerrar:hover {
+  color: var(--torii-dark);
+}
+
+.imagen-dialogo {
+  display: block;
+  max-width: 100%;
+  max-height: 70vh;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.pie-dialogo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.detalle-imagen {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}

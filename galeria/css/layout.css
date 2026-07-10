@@ -1,0 +1,73 @@
+/* Estructura general de la página: fondo, tipografía base, contenedor y espaciado.
+   Los componentes (navegación, tarjetas, grilla, diálogo) viven en componentes.css. */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--cream-bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+.contenedor {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+.encabezado {
+  margin-top: 40px;
+}
+
+.encabezado h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.subtitulo {
+  margin: 4px 0 0;
+  color: var(--ink-soft);
+}
+
+main {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Fila de campos: se acomodan con flexbox y bajan de línea en pantallas angostas. */
+.fila-campos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.campo {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* La ayuda va entre las dos filas del formulario. */
+.fila-campos + .ayuda {
+  margin: 8px 0 16px;
+}
+
+@media (max-width: 520px) {
+  .contenedor {
+    padding: 24px 16px 64px;
+  }
+
+  .fila-campos {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

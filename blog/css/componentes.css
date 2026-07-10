@@ -1,0 +1,253 @@
+/* Componentes visuales: navegación del hub, tarjetas, campos, botones, entradas y detalle.
+   Sin sombras ni gradientes: separación con bordes finos, según los principios del doc. */
+
+.isotipo-torii {
+  fill: var(--torii);
+}
+
+/* Barra de navegación del hub, compartida por todas las páginas del sitio. */
+.navegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding-bottom: 16px;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.marca-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.enlaces-nav {
+  display: flex;
+  gap: 16px;
+}
+
+.enlaces-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.enlaces-nav a:hover {
+  color: var(--torii-dark);
+  text-decoration: underline;
+}
+
+.enlaces-nav a[aria-current="page"] {
+  color: var(--torii-dark);
+  font-weight: 600;
+}
+
+.tarjeta {
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.tarjeta h2 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+input,
+textarea {
+  font: inherit;
+  color: var(--ink);
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+textarea {
+  min-height: 160px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+input:focus,
+textarea:focus {
+  outline: 1px solid var(--torii);
+  outline-offset: 1px;
+}
+
+.ayuda {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* El rojo torii se usa como acento: este botón es el único fondo rojo de la pantalla. */
+.boton-principal {
+  font: inherit;
+  font-weight: 600;
+  color: var(--cream-card);
+  background-color: var(--torii);
+  border: 0.5px solid var(--torii);
+  border-radius: 8px;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+.boton-principal:hover {
+  background-color: var(--torii-dark);
+  border-color: var(--torii-dark);
+}
+
+.boton-eliminar {
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--torii-dark);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.boton-eliminar:hover {
+  text-decoration: underline;
+}
+
+.mensaje {
+  margin: 0 0 24px;
+  padding: 10px 14px;
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+}
+
+.mensaje-error {
+  color: var(--torii-dark);
+  border-color: var(--torii);
+}
+
+.aviso-vacio {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+/* Lista de entradas: título clickeable + fecha, separadas por líneas finas. */
+.lista-entradas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lista-entradas li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.lista-entradas li:last-child {
+  border-bottom: none;
+}
+
+.lista-entradas a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.lista-entradas a:hover {
+  color: var(--torii-dark);
+  text-decoration: underline;
+}
+
+.fecha-entrada {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+/* Vista de detalle de una entrada. */
+.enlace-volver {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: var(--torii-dark);
+  text-decoration: none;
+}
+
+.enlace-volver:hover {
+  text-decoration: underline;
+}
+
+.detalle-titulo {
+  margin: 0 0 4px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.detalle-fecha {
+  margin: 0 0 20px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.detalle-contenido {
+  line-height: 1.7;
+}
+
+.detalle-contenido p {
+  margin: 0 0 12px;
+}
+
+#boton-eliminar-entrada {
+  margin-top: 24px;
+}
+
+/* Publicación: exportar el archivo de publicadas y distinguir borradores en el listado. */
+.boton-secundario {
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--ink);
+  background-color: transparent;
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+  margin: 12px 0 16px;
+}
+
+.boton-secundario:hover {
+  border-color: var(--torii);
+  color: var(--torii-dark);
+}
+
+.titulo-con-etiqueta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.etiqueta-borrador {
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+  padding: 1px 8px;
+  white-space: nowrap;
+}
+
+.nota-publicada {
+  margin-top: 24px;
+}

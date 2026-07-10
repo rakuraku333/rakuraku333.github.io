@@ -1,0 +1,86 @@
+/* Estructura general de proyectos: fondo, tipografía base, contenedor y espaciado.
+   Los componentes (navegación, tarjetas de apps, etiquetas) viven en componentes.css. */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--cream-bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+.contenedor {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.portada {
+  margin: 64px 0 72px;
+}
+
+.portada h1 {
+  margin: 0 0 16px;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.25;
+  max-width: 18ch;
+}
+
+.portada p {
+  margin: 0;
+  color: var(--ink-soft);
+  max-width: 52ch;
+}
+
+/* Secciones separadas por línea fina y mucho aire, en vez de sombras o fondos. */
+.seccion {
+  border-top: 0.5px solid var(--line);
+  padding: 48px 0;
+}
+
+.seccion h2 {
+  margin: 0 0 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.seccion p {
+  margin: 0 0 12px;
+  max-width: 60ch;
+}
+
+.grilla-apps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.pie {
+  border-top: 0.5px solid var(--line);
+  padding-top: 24px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 560px) {
+  .contenedor {
+    padding: 24px 16px 40px;
+  }
+
+  .portada {
+    margin: 48px 0 56px;
+  }
+
+  .portada h1 {
+    font-size: 1.6rem;
+  }
+
+  .grilla-apps {
+    grid-template-columns: 1fr;
+  }
+}
