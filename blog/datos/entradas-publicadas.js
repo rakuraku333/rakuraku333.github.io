@@ -7,9 +7,9 @@
 
 const ENTRADAS_PUBLICADAS = [
   {
-    id: "2026-07-09-la-portada-es-una-bitacora",
-    titulo: "La portada ahora es una bitácora",
-    contenido: "Reorganicé el sitio: la portada dejó de ser una vidriera de apps y pasó a ser esto, una bitácora.\n\nLas notas que escriba van a aparecer acá, en cascada, con la más nueva arriba. Las herramientas que construyo ahora viven en su propia página, **proyectos**, y quién soy está en **sobre mí**.\n\nEl flujo para publicar es deliberadamente simple: escribo en el editor del blog, exporto y commiteo. Sin backend, sin base de datos: el contenido es un archivo más del repositorio.",
-    fechaCreacion: "2026-07-09T12:00:00.000",
+    id: "2026-07-10-es-ahora",
+    titulo: "Es ahora.",
+    contenido: "El presente es lo único real\nEl pasado ya no existe y el futuro todavía no llegó. La mente inquieta vive saltando entre ambos, pero la paz solo se encuentra cuando los pies están donde está el cuerpo. ¿Entendes? Intenta respirar y localizar tus pies, eso es un buen punto de partida 😉",
+    fechaCreacion: "2026-07-10T04:10:00.000",
   },
 ];
