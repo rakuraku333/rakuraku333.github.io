@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Motor GPU de visuales audio-reactivos en Python — el generador de escenas del que salió ocaso.">
+  <title>waveforge — raku</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/waveforge.css">
+  <link rel="stylesheet" href="../ocaso/css/ocaso.css">
+</head>
+<body>
+  <div class="contenedor">
+    <nav class="navegacion">
+      <a class="marca-nav" href="../index.html">
+        <svg class="isotipo-torii" viewBox="0 0 48 48" width="22" height="22" aria-hidden="true">
+          <rect x="2" y="6" width="44" height="5" rx="1" />
+          <rect x="22" y="11" width="4" height="6" />
+          <rect x="7" y="17" width="34" height="4" rx="1" />
+          <rect x="11" y="11" width="5" height="31" rx="1" />
+          <rect x="32" y="11" width="5" height="31" rx="1" />
+        </svg>
+        <span>raku</span>
+      </a>
+      <div class="enlaces-nav">
+        <a href="../proyectos/index.html">proyectos</a>
+        <a href="../sobre-mi/index.html">sobre mí</a>
+      </div>
+    </nav>
+
+    <header class="encabezado">
+      <h1>waveforge</h1>
+    </header>
+    <p class="subtitulo">Motor GPU de visuales audio-reactivos en Python — el generador de escenas del que salió ocaso.</p>
+
+    <main>
+      <p>
+        Un patrón es un shader chico: un fondo, una silueta de montañas, una lluvia de estrellas.
+        Se combinan en vivo como capas — blend, orden, perillas propias — y reaccionan al audio en
+        tiempo real. Cualquiera puede sumar su propio algoritmo en Python: se suelta un archivo y
+        aparece, sin reiniciar nada.
+      </p>
+
+      <figure>
+        <div class="escena-ocaso">
+          <canvas id="escena" aria-label="Torii wireframe girando en vivo contra un ocaso synthwave"></canvas>
+        </div>
+        <figcaption class="pie-imagen">En vivo: el mismo torii de ocaso, en Canvas 2D con beat sintético.</figcaption>
+      </figure>
+
+      <p class="ayuda">Todo lo animado en esta página (acá arriba y en "Ejemplos") es una recreación
+      explicativa en Canvas 2D — no hay un motor Python corriendo en el navegador, eso no es posible.
+      El potencial real (patrones GPU, audio en vivo, capas y tunables) está en el proyecto.</p>
+
+      <section aria-labelledby="titulo-ejemplos">
+        <h2 id="titulo-ejemplos">Ejemplos</h2>
+        <div class="grilla-ejemplos">
+          <figure>
+            <canvas id="escena-pilares" aria-label="Pilares wireframe en perspectiva acercándose a cámara, en vivo"></canvas>
+            <figcaption>Pilares wireframe acercándose a cámara.</figcaption>
+          </figure>
+          <figure>
+            <canvas id="escena-estrellas" aria-label="Cielo con estrellas titilantes y una estrella fugaz, en vivo"></canvas>
+            <figcaption>Lluvia de estrellas, fugaces al ritmo del beat.</figcaption>
+          </figure>
+          <figure>
+            <canvas id="escena-bars" aria-label="Barras de espectro de audio con tope redondeado, glow y cap de pico, en vivo"></canvas>
+            <figcaption>El espectro clásico, con glow y peak-hold.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section aria-labelledby="titulo-patron">
+        <h2 id="titulo-patron">Tu propio patrón</h2>
+        <p>El contrato son dos métodos. Esto ya es un patrón andando (fragmento; la plantilla completa vive en el repo):</p>
+        <pre class="bloque-codigo"><code>class MiPatron(Pattern):
+    name = "mi_patron"
+    TUNABLES = ({"name": "brillo", "min": 0.5, "max": 2.0, "default": 1.0},)
+
+    def update(self, dt, audio):
+        self.brillo = 1.0 + audio.beat_env * 0.5   # late con el beat
+
+    def render(self, time):
+        self.prog["u_brillo"].value = self.brillo
+        self.quad.render(moderngl.TRIANGLE_STRIP)</code></pre>
+        <p>Se suelta en <code>patterns_dropped/</code> (arrastrando el archivo) y aparece solo, con
+        recarga en caliente cada vez que se guarda.</p>
+      </section>
+
+      <p><a href="https://github.com/rakuraku333/waveforge" target="_blank" rel="noopener">Código en GitHub →</a></p>
+    </main>
+
+    <footer class="pie"><span>raku · 2026</span></footer>
+  </div>
+
+  <script src="../ocaso/js/ocaso.js"></script>
+  <script src="js/ejemplos.js"></script>
+</body>
+</html>

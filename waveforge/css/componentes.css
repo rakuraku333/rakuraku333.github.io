@@ -1,0 +1,183 @@
+/* Componentes visuales: navegación del hub, tarjetas, campos, botones y lista de hábitos.
+   Sin sombras ni gradientes: separación con bordes finos, según los principios del doc. */
+
+.isotipo-torii {
+  fill: var(--torii);
+}
+
+/* Barra de navegación del hub, compartida por todas las páginas del sitio. */
+.navegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding-bottom: 16px;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.marca-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.enlaces-nav {
+  display: flex;
+  gap: 16px;
+}
+
+.enlaces-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.enlaces-nav a:hover {
+  color: var(--torii-dark);
+  text-decoration: underline;
+}
+
+.enlaces-nav a[aria-current="page"] {
+  color: var(--torii-dark);
+  font-weight: 600;
+}
+
+.tarjeta {
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.tarjeta h2 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+input {
+  font: inherit;
+  color: var(--ink);
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+input:focus {
+  outline: 1px solid var(--torii);
+  outline-offset: 1px;
+}
+
+.boton-principal {
+  font: inherit;
+  font-weight: 600;
+  color: var(--cream-card);
+  background-color: var(--torii);
+  border: 0.5px solid var(--torii);
+  border-radius: 8px;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+.boton-principal:hover {
+  background-color: var(--torii-dark);
+  border-color: var(--torii-dark);
+}
+
+.boton-eliminar {
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--torii-dark);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.boton-eliminar:hover {
+  text-decoration: underline;
+}
+
+.mensaje {
+  margin: 0;
+  padding: 10px 14px;
+  border: 0.5px solid var(--line);
+  border-radius: 8px;
+}
+
+.mensaje-error {
+  color: var(--torii-dark);
+  border-color: var(--torii);
+}
+
+.aviso-vacio {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+/* Lista de hábitos: botón de hoy + nombre y rachas + eliminar, por fila. */
+.lista-habitos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lista-habitos li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.lista-habitos li:last-child {
+  border-bottom: none;
+}
+
+/* El botón "Hoy" es el acento de la app: contorno rojo, y relleno cuando ya se cumplió. */
+.boton-hoy {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--torii-dark);
+  background-color: transparent;
+  border: 0.5px solid var(--torii);
+  border-radius: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.boton-hoy[aria-pressed="true"] {
+  color: var(--cream-card);
+  background-color: var(--torii);
+}
+
+.info-habito {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.nombre-habito {
+  font-weight: 600;
+  overflow-wrap: break-word;
+}
+
+.detalle-racha {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}

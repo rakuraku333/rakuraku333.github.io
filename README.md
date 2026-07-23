@@ -11,7 +11,7 @@ Vanilla a propósito — un sitio personal no necesita más: clonás, abrís `in
 - **Bitácora** (`/`) — notas publicadas en cascada, la más nueva arriba. El contenido es parte del repo: `blog/datos/entradas-publicadas.js`.
 - **Proyectos** (`proyectos/`) — la vidriera de apps.
 - **Sobre mí** (`sobre-mi/`) — bio y contacto.
-- **Apps** — [gastos](gastos/), [blog](blog/) (el taller de la bitácora), [hábitos](habitos/) y [galería](galeria/). Cada una resuelve una sola cosa; los datos de quien las usa quedan en su propio navegador (localStorage).
+- **Apps** — [gastos](gastos/), [blog](blog/) (el taller de la bitácora), [hábitos](habitos/), [galería](galeria/), [waveforge](waveforge/) (motor GPU de visuales audio-reactivos en Python) y [ocaso](ocaso/) (un torii y un ocaso animados, algoritmos porteados de waveforge). Cada una resuelve una sola cosa; los datos de quien las usa quedan en su propio navegador (localStorage).
 
 ![Proyectos](capturas/proyectos.png)
 

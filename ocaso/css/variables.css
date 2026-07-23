@@ -9,11 +9,4 @@
   --ink: #2B2420;         /* texto principal, marrón oscuro cálido en vez de negro puro */
   --ink-soft: #7A7267;    /* texto secundario / descripciones */
   --line: #E4DBC8;        /* bordes finos, 0.5px */
-
-  /* Semánticos agregados para la vista gastos/billetera; se mantienen acá
-     porque variables.css es igual en todas las vistas del hub. */
-  --ingreso: #4A7A5C;
-  --egreso: #B5533C;
-  --deuda: #C9954B;
-  --icono-bg: #F0E9DB;
 }

@@ -1,0 +1,344 @@
+/* Reusa .navegacion, .marca-nav, .enlaces-nav, .isotipo-torii y demás clases
+   compartidas del hub en vez de duplicarlas acá. */
+@import url("../../css/componentes.css");
+
+/* Selector de billetera: pill deshabilitada visualmente (una sola billetera por ahora). */
+.pill-billetera {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--ink);
+  background-color: transparent;
+  border: 0.5px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: default;
+}
+
+.card-resumen {
+  flex: 1;
+  border: 0.5px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.resumen-monto {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.resumen-ingreso {
+  color: var(--ingreso);
+}
+
+.resumen-egreso {
+  color: var(--egreso);
+}
+
+.resumen-label {
+  margin: 4px 0 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.card-deuda {
+  border: 0.5px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.deuda-nombre {
+  margin: 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.deuda-monto {
+  margin: 4px 0 12px;
+  font-weight: 600;
+  color: var(--deuda);
+}
+
+.barra-progreso {
+  height: 8px;
+  border-radius: 8px;
+  background-color: var(--line);
+  overflow: hidden;
+}
+
+.barra-progreso-relleno {
+  height: 100%;
+  background-color: var(--deuda);
+}
+
+.deuda-proxima-cuota {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.enlace-ver-todos {
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.lista-transacciones {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fila-transaccion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icono-transaccion {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--icono-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.detalle-transaccion {
+  flex: 1;
+  min-width: 0;
+}
+
+.descripcion-transaccion {
+  margin: 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.caption-transaccion {
+  margin: 2px 0 0;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+}
+
+.monto-transaccion {
+  flex: none;
+  font-weight: 600;
+}
+
+/* Botón flotante de carga rápida: deshabilitado hasta que exista la pantalla 2. */
+.boton-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 84px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 0.5px solid var(--torii);
+  background-color: var(--torii);
+  color: var(--cream-card);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.bottom-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  width: 375px;
+  max-width: 100%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-around;
+  background-color: var(--cream-card);
+  border-top: 0.5px solid var(--ink-soft);
+  padding: 8px 0;
+}
+
+.tab-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  cursor: not-allowed;
+}
+
+.tab-nav-activo {
+  color: var(--torii);
+  cursor: default;
+}
+
+/* Sheet de carga rápida (Pantalla 2), abierto desde el FAB. */
+.sheet-carga {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: auto;
+  bottom: 0;
+  margin: 0 auto;
+  width: min(375px, 100vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  border: none;
+  border-radius: 20px 20px 0 0;
+  padding: 24px;
+  background-color: var(--cream-card);
+  color: var(--ink);
+}
+
+.sheet-carga[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: deslizar-sheet-arriba 0.25s ease-out;
+}
+
+@keyframes deslizar-sheet-arriba {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Fondo detrás del sheet: negro al 40% (acá no se pueden usar variables en todos los navegadores). */
+.sheet-carga::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.handle-sheet {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--line);
+  align-self: center;
+}
+
+.segmented-control {
+  display: flex;
+  gap: 4px;
+  background-color: var(--icono-bg);
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.segmented-opcion {
+  flex: 1;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink-soft);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.segmented-opcion.activa {
+  background-color: var(--cream-card);
+}
+
+.segmented-opcion.activa[data-tipo="egreso"] {
+  color: var(--egreso);
+}
+
+.segmented-opcion.activa[data-tipo="ingreso"] {
+  color: var(--ingreso);
+}
+
+.monto-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.monto-input {
+  border: none;
+  background-color: transparent;
+  font: inherit;
+  color: inherit;
+  width: auto;
+  max-width: 260px;
+}
+
+.monto-input:focus {
+  outline: none;
+}
+
+.monto-input.monto-mediano {
+  font-size: 1.75rem;
+}
+
+.monto-input.monto-chico {
+  font-size: 1.25rem;
+}
+
+.monto-input.color-egreso {
+  color: var(--egreso);
+}
+
+.monto-input.color-ingreso {
+  color: var(--ingreso);
+}
+
+.fila-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  background-color: transparent;
+  border: 0.5px solid var(--line);
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.chip.seleccionada {
+  background-color: rgba(190, 58, 52, 0.1);
+  border-color: var(--torii);
+  color: var(--torii);
+  font-weight: 700;
+}
+
+.sheet-carga .boton-principal {
+  display: block;
+  width: 100%;
+  font: inherit;
+  cursor: pointer;
+}
+
+.boton-principal:disabled {
+  background-color: var(--line);
+  border-color: var(--line);
+  color: var(--ink-soft);
+  cursor: not-allowed;
+}

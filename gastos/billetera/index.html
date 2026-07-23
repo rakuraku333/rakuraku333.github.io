@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>billetera — raku</title>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/componentes.css">
+
+  <!-- El orden importa: cada archivo usa lo que definen los anteriores. -->
+  <script src="js/constantes.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/logica.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <div class="contenedor-app">
+    <nav class="navegacion">
+      <a class="marca-nav" href="../../index.html">
+        <svg class="isotipo-torii" viewBox="0 0 48 48" width="22" height="22" aria-hidden="true">
+          <rect x="2" y="6" width="44" height="5" rx="1" />
+          <rect x="22" y="11" width="4" height="6" />
+          <rect x="7" y="17" width="34" height="4" rx="1" />
+          <rect x="11" y="11" width="5" height="31" rx="1" />
+          <rect x="32" y="11" width="5" height="31" rx="1" />
+        </svg>
+        <span>raku</span>
+      </a>
+      <div class="enlaces-nav">
+        <a href="../../proyectos/index.html">proyectos</a>
+        <a href="../../sobre-mi/index.html">sobre mí</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="pantalla-billetera">
+    <p id="mensaje" class="mensaje" role="alert" hidden></p>
+
+    <header class="encabezado-billetera">
+      <div class="saludo">
+        <p>Hola, <strong>Iña</strong></p>
+      </div>
+      <button
+        type="button"
+        class="pill-billetera"
+        aria-disabled="true"
+        title="Próximamente: selector de billeteras"
+      >
+        Billetera 1 <span aria-hidden="true">▾</span>
+      </button>
+    </header>
+
+    <section class="seccion-saldo" aria-label="Saldo total">
+      <p class="saldo-label">Saldo total</p>
+      <p class="saldo-monto" id="saldo-total">$0</p>
+    </section>
+
+    <section class="resumen-ingreso-egreso" aria-label="Resumen de ingresos y egresos">
+      <div class="card-resumen">
+        <p class="resumen-monto resumen-ingreso" id="resumen-ingresos">$0</p>
+        <p class="resumen-label">Ingresos</p>
+      </div>
+      <div class="card-resumen">
+        <p class="resumen-monto resumen-egreso" id="resumen-egresos">$0</p>
+        <p class="resumen-label">Egresos</p>
+      </div>
+    </section>
+
+    <section class="seccion-deuda" aria-labelledby="titulo-deuda">
+      <h2 class="titulo-seccion" id="titulo-deuda">Deuda activa</h2>
+      <div class="card-deuda">
+        <p class="deuda-nombre" id="deuda-nombre"></p>
+        <p class="deuda-monto" id="deuda-monto"></p>
+        <div class="barra-progreso">
+          <div class="barra-progreso-relleno" id="deuda-barra-relleno"></div>
+        </div>
+        <p class="deuda-proxima-cuota" id="deuda-proxima-cuota"></p>
+      </div>
+    </section>
+
+    <section class="seccion-transacciones" aria-labelledby="titulo-transacciones">
+      <div class="fila-titulo-seccion">
+        <h2 class="titulo-seccion" id="titulo-transacciones">Transacciones recientes</h2>
+        <a href="#" class="enlace-ver-todos" aria-disabled="true" title="Próximamente" onclick="return false;">Ver todos</a>
+      </div>
+      <p id="aviso-transacciones-vacio" class="aviso-vacio" hidden></p>
+      <ul id="lista-transacciones" class="lista-transacciones" hidden></ul>
+    </section>
+
+    <button
+      type="button"
+      id="boton-fab"
+      class="boton-fab"
+    >+</button>
+
+    <nav class="bottom-nav" aria-label="Navegación de la billetera">
+      <a href="#" class="tab-nav tab-nav-activo" aria-current="page">
+        <span aria-hidden="true">🏠</span>
+        <span>Inicio</span>
+      </a>
+      <a href="#" class="tab-nav" aria-disabled="true" title="Próximamente" onclick="return false;">
+        <span aria-hidden="true">🔁</span>
+        <span>Movimientos</span>
+      </a>
+      <a href="#" class="tab-nav" aria-disabled="true" title="Próximamente" onclick="return false;">
+        <span aria-hidden="true">💳</span>
+        <span>Deudas</span>
+      </a>
+      <a href="#" class="tab-nav" aria-disabled="true" title="Próximamente" onclick="return false;">
+        <span aria-hidden="true">👤</span>
+        <span>Perfil</span>
+      </a>
+    </nav>
+  </div>
+
+  <dialog id="sheet-carga" class="sheet-carga">
+    <div class="handle-sheet" aria-hidden="true"></div>
+
+    <div class="segmented-control" role="group" aria-label="Tipo de transacción">
+      <button type="button" class="segmented-opcion" data-tipo="egreso">Egreso</button>
+      <button type="button" class="segmented-opcion" data-tipo="ingreso">Ingreso</button>
+    </div>
+
+    <div class="monto-display">
+      <span aria-hidden="true">$</span>
+      <input type="text" inputmode="numeric" id="input-monto" class="monto-input" placeholder="0" maxlength="9" aria-label="Monto">
+    </div>
+
+    <div id="chips-categoria" class="fila-chips"></div>
+
+    <span class="pill-billetera">Billetera 1 <span aria-hidden="true">▾</span></span>
+
+    <button type="button" id="boton-agregar" class="boton-principal" disabled>Agregar</button>
+  </dialog>
+</body>
+</html>

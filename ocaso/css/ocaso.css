@@ -1,0 +1,19 @@
+/* Escena ocaso: panel oscuro enmarcado con el canvas adentro;
+   el chrome de la página queda cream/torii. */
+
+.escena-ocaso {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+#escena {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  max-height: 70vh;
+  border-radius: 4px;
+}

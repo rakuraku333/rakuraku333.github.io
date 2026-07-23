@@ -7,6 +7,12 @@
 
 const ENTRADAS_PUBLICADAS = [
   {
+    "id": "2026-07-23-dos-semanas-de-vibe",
+    "titulo": "2 semanas de vibe",
+    "contenido": "Estas dos semanas sentí que mi workflow se fue puliendo día a día. Lo que más me sorprendió fue lo entretenido que resulta aprender sobre la marcha: cada vez entiendo mejor el código simplemente leyéndolo, y eso me da mucha más confianza para moverme en proyectos que no conozco.\n\nLa compañía de mi colega y mejor amigo también hizo una gran diferencia. Compartir ideas, discutir implementaciones y resolver problemas juntos aceleró muchísimo mi aprendizaje.\n\nOtra cosa que empecé a notar es que, después de leer la documentación y entender la estructura de una librería, muchas veces ya puedo imaginar cómo integrarla antes de haberla usado. Se siente como un superpoder, pero también viene con una responsabilidad enorme: hay que leer. Cuanto más tiempo invierto en leer código y documentación, más rápido puedo entender herramientas nuevas y aplicarlas correctamente.\n\nSi estas dos semanas me dejaron una enseñanza, es que la velocidad para programar no viene de memorizar APIs, sino de desarrollar la capacidad de leer, comprender y adaptarse a código desconocido. Ese es un hábito que quiero seguir fortaleciendo.",
+    "fechaCreacion": "2026-07-23T12:00:00.000"
+  },
+  {
     "id": "1783668385663-ibpqw5",
     "titulo": "Un milisegundo de diferencia",
     "contenido": "Dos notas creadas en el mismo segundo empataban la fecha y el orden se daba vuelta.\n\nClaves de ordenamiento...",

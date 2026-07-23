@@ -64,3 +64,14 @@
 .lista-contacto a:hover {
   text-decoration: underline;
 }
+
+/* Lista de "Actualmente": bullets simples, mismo ritmo que los párrafos de .seccion. */
+.seccion ul.lista-enfoque {
+  margin: 0 0 12px;
+  padding-left: 20px;
+  max-width: 60ch;
+}
+
+.seccion ul.lista-enfoque li {
+  margin-bottom: 4px;
+}
