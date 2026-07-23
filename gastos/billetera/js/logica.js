@@ -62,5 +62,29 @@ function esFormularioValido(monto, categoria) {
 }
 
 function crearTransaccion(tipo, monto, categoria) {
-  return { tipo, monto, categoria, descripcion: categoria, fecha: obtenerFechaDeHoy() };
+  return { id: crearIdUnico(), tipo, monto, categoria, descripcion: categoria, fecha: obtenerFechaDeHoy() };
+}
+
+function crearIdUnico() {
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function asegurarIds(transacciones) {
+  return transacciones.map(transaccion =>
+    transaccion.id ? transaccion : { ...transaccion, id: crearIdUnico() }
+  );
+}
+
+function actualizarTransaccion(transacciones, id, cambios) {
+  return transacciones.map(transaccion =>
+    transaccion.id === id ? { ...transaccion, ...cambios } : transaccion
+  );
+}
+
+function quitarTransaccionPorId(transacciones, id) {
+  return transacciones.filter(transaccion => transaccion.id !== id);
+}
+
+function buscarTransaccionPorId(transacciones, id) {
+  return transacciones.find(transaccion => transaccion.id === id) || null;
 }

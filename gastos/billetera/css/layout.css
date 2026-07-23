@@ -29,6 +29,21 @@ body {
   gap: 24px;
 }
 
+.pantalla-movimientos {
+  max-width: 375px;
+  margin: 0 auto;
+  background-color: var(--cream-bg);
+  padding: 24px 20px 96px;
+}
+
+/* [hidden] tiene la misma especificidad que la clase: sin esto, display:flex/
+   block de arriba le gana al display:none nativo del atributo y la pantalla
+   "oculta" sigue mostrándose (toggle Inicio/Movimientos no funcionaba). */
+.pantalla-billetera[hidden],
+.pantalla-movimientos[hidden] {
+  display: none;
+}
+
 .encabezado-billetera {
   display: flex;
   justify-content: space-between;

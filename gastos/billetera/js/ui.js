@@ -11,12 +11,19 @@ const elementoDeudaBarraRelleno = document.getElementById('deuda-barra-relleno')
 const elementoDeudaProximaCuota = document.getElementById('deuda-proxima-cuota');
 const avisoTransaccionesVacio = document.getElementById('aviso-transacciones-vacio');
 const listaTransacciones = document.getElementById('lista-transacciones');
+const avisoMovimientosVacio = document.getElementById('aviso-movimientos-vacio');
+const listaMovimientos = document.getElementById('lista-movimientos');
+const pantallaInicio = document.querySelector('.pantalla-billetera');
+const pantallaMovimientos = document.getElementById('pantalla-movimientos');
+const tabInicio = document.getElementById('tab-inicio');
+const tabMovimientos = document.getElementById('tab-movimientos');
 const botonFab = document.getElementById('boton-fab');
 const dialogoSheetCarga = document.getElementById('sheet-carga');
 const botonesSegmented = document.querySelectorAll('.segmented-opcion');
 const inputMonto = document.getElementById('input-monto');
 const contenedorChipsCategoria = document.getElementById('chips-categoria');
 const botonAgregar = document.getElementById('boton-agregar');
+const botonBorrar = document.getElementById('boton-borrar');
 
 const formateadorMoneda = new Intl.NumberFormat(LOCALE_MONEDA, {
   style: 'currency',
@@ -44,9 +51,14 @@ function renderizarDeuda(deuda, porcentaje) {
   elementoDeudaProximaCuota.textContent = `Próxima cuota: ${deuda.proximaCuota}`;
 }
 
-function crearFilaTransaccion(transaccion, etiquetaFecha) {
+function crearFilaTransaccion(transaccion, etiquetaFecha, onClickTransaccion) {
   const fila = document.createElement('li');
   fila.className = 'fila-transaccion';
+
+  const boton = document.createElement('button');
+  boton.type = 'button';
+  boton.className = 'boton-fila-transaccion';
+  boton.addEventListener('click', () => onClickTransaccion(transaccion.id));
 
   const icono = document.createElement('span');
   icono.className = 'icono-transaccion';
@@ -71,28 +83,37 @@ function crearFilaTransaccion(transaccion, etiquetaFecha) {
   monto.className = `monto-transaccion ${esIngreso ? 'resumen-ingreso' : 'resumen-egreso'}`;
   monto.textContent = `${esIngreso ? '+' : '-'}${formatearMonto(transaccion.monto)}`;
 
-  fila.append(icono, detalle, monto);
+  boton.append(icono, detalle, monto);
+  fila.appendChild(boton);
   return fila;
 }
 
-function renderizarTransaccionesRecientes(transacciones) {
-  listaTransacciones.innerHTML = '';
+function renderizarListaTransacciones(transacciones, listaElemento, avisoElemento, onClickTransaccion) {
+  listaElemento.innerHTML = '';
 
   if (transacciones.length === 0) {
-    listaTransacciones.hidden = true;
-    avisoTransaccionesVacio.textContent = MENSAJES.listaVacia;
-    avisoTransaccionesVacio.hidden = false;
+    listaElemento.hidden = true;
+    avisoElemento.textContent = MENSAJES.listaVacia;
+    avisoElemento.hidden = false;
     return;
   }
 
-  avisoTransaccionesVacio.hidden = true;
-  listaTransacciones.hidden = false;
+  avisoElemento.hidden = true;
+  listaElemento.hidden = false;
 
   const hoyIso = obtenerFechaDeHoy();
   for (const transaccion of transacciones) {
     const etiquetaFecha = obtenerEtiquetaFecha(transaccion.fecha, hoyIso);
-    listaTransacciones.appendChild(crearFilaTransaccion(transaccion, etiquetaFecha));
+    listaElemento.appendChild(crearFilaTransaccion(transaccion, etiquetaFecha, onClickTransaccion));
   }
+}
+
+function renderizarTransaccionesRecientes(transacciones, onClickTransaccion) {
+  renderizarListaTransacciones(transacciones, listaTransacciones, avisoTransaccionesVacio, onClickTransaccion);
+}
+
+function renderizarMovimientos(transacciones, onClickTransaccion) {
+  renderizarListaTransacciones(transacciones, listaMovimientos, avisoMovimientosVacio, onClickTransaccion);
 }
 
 function mostrarMensajeError(texto) {
@@ -139,13 +160,33 @@ function actualizarBotonAgregar(habilitado) {
   botonAgregar.disabled = !habilitado;
 }
 
-function abrirSheetCarga() {
-  actualizarSegmented('egreso');
-  inputMonto.value = '';
-  actualizarColorMonto('egreso');
+function abrirSheetCarga(transaccion) {
+  const esEdicion = !!transaccion;
+  const tipo = esEdicion ? transaccion.tipo : 'egreso';
+  actualizarSegmented(tipo);
+  inputMonto.value = esEdicion ? String(transaccion.monto) : '';
+  actualizarColorMonto(tipo);
   actualizarTamanoMonto();
-  actualizarBotonAgregar(false);
+  actualizarBotonAgregar(esEdicion);
+  botonAgregar.textContent = esEdicion ? 'Guardar cambios' : 'Agregar';
+  botonBorrar.hidden = !esEdicion;
   dialogoSheetCarga.showModal();
+}
+
+function mostrarPantalla(pantalla) {
+  const esInicio = pantalla === 'inicio';
+  pantallaInicio.hidden = !esInicio;
+  pantallaMovimientos.hidden = esInicio;
+
+  tabInicio.classList.toggle('tab-nav-activo', esInicio);
+  tabMovimientos.classList.toggle('tab-nav-activo', !esInicio);
+  if (esInicio) {
+    tabInicio.setAttribute('aria-current', 'page');
+    tabMovimientos.removeAttribute('aria-current');
+  } else {
+    tabMovimientos.setAttribute('aria-current', 'page');
+    tabInicio.removeAttribute('aria-current');
+  }
 }
 
 function cerrarSheetCarga() {

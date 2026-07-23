@@ -3,6 +3,7 @@
 let transacciones = [];
 let tipoTransaccionActual = 'egreso';
 let categoriaElegida = null;
+let transaccionEditandoId = null;
 
 function iniciarAplicacion() {
   const transaccionesGuardadas = leerTransacciones();
@@ -11,6 +12,12 @@ function iniciarAplicacion() {
     mostrarMensajeError(MENSAJES.errorLeer);
   } else {
     transacciones = transaccionesGuardadas;
+  }
+
+  const necesitaMigracionDeIds = transacciones.some(transaccion => !transaccion.id);
+  transacciones = asegurarIds(transacciones);
+  if (necesitaMigracionDeIds) {
+    guardarTransacciones(transacciones);
   }
 
   actualizarPantalla();
@@ -24,6 +31,16 @@ function iniciarAplicacion() {
   inputMonto.addEventListener('input', manejarInputMonto);
 
   botonAgregar.addEventListener('click', manejarAgregarTransaccion);
+  botonBorrar.addEventListener('click', manejarBorrarTransaccion);
+
+  tabInicio.addEventListener('click', evento => {
+    evento.preventDefault();
+    mostrarPantalla('inicio');
+  });
+  tabMovimientos.addEventListener('click', evento => {
+    evento.preventDefault();
+    mostrarPantalla('movimientos');
+  });
 
   // Un click en el fondo oscuro (el propio <dialog>, no su contenido) también cierra.
   // La tecla Escape ya la maneja el navegador por ser un diálogo modal.
@@ -41,14 +58,28 @@ function actualizarPantalla() {
     calcularTotalEgresos(transacciones)
   );
   renderizarDeuda(DEUDA_EJEMPLO, calcularPorcentajeDeuda(DEUDA_EJEMPLO));
-  renderizarTransaccionesRecientes(transacciones);
+  renderizarTransaccionesRecientes(transacciones, manejarClickTransaccion);
+  renderizarMovimientos(transacciones, manejarClickTransaccion);
 }
 
 function manejarAperturaSheet() {
+  transaccionEditandoId = null;
   tipoTransaccionActual = 'egreso';
   categoriaElegida = null;
   renderizarChipsCategoria(categoriaElegida, manejarSeleccionCategoria);
   abrirSheetCarga();
+}
+
+function manejarClickTransaccion(id) {
+  const transaccion = buscarTransaccionPorId(transacciones, id);
+  if (!transaccion) {
+    return;
+  }
+  transaccionEditandoId = id;
+  tipoTransaccionActual = transaccion.tipo;
+  categoriaElegida = transaccion.categoria;
+  renderizarChipsCategoria(categoriaElegida, manejarSeleccionCategoria);
+  abrirSheetCarga(transaccion);
 }
 
 function manejarCambioTipo(tipo) {
@@ -80,7 +111,34 @@ function manejarAgregarTransaccion() {
     return;
   }
 
-  transacciones.unshift(crearTransaccion(tipoTransaccionActual, monto, categoriaElegida));
+  if (transaccionEditandoId) {
+    transacciones = actualizarTransaccion(transacciones, transaccionEditandoId, {
+      tipo: tipoTransaccionActual,
+      monto,
+      categoria: categoriaElegida,
+      descripcion: categoriaElegida,
+    });
+    transaccionEditandoId = null;
+  } else {
+    transacciones.unshift(crearTransaccion(tipoTransaccionActual, monto, categoriaElegida));
+  }
+
+  const seGuardo = guardarTransacciones(transacciones);
+  if (!seGuardo) {
+    mostrarMensajeError(MENSAJES.errorGuardar);
+  }
+
+  actualizarPantalla();
+  cerrarSheetCarga();
+}
+
+function manejarBorrarTransaccion() {
+  if (!transaccionEditandoId) {
+    return;
+  }
+
+  transacciones = quitarTransaccionPorId(transacciones, transaccionEditandoId);
+  transaccionEditandoId = null;
 
   const seGuardo = guardarTransacciones(transacciones);
   if (!seGuardo) {

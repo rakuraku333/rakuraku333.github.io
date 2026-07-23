@@ -97,9 +97,20 @@
 }
 
 .fila-transaccion {
+  margin: 0;
+}
+
+.boton-fila-transaccion {
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
+  font: inherit;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .icono-transaccion {
@@ -336,9 +347,27 @@
   cursor: pointer;
 }
 
+.sheet-carga .boton-eliminar {
+  align-self: center;
+}
+
 .boton-principal:disabled {
   background-color: var(--line);
   border-color: var(--line);
   color: var(--ink-soft);
   cursor: not-allowed;
+}
+
+.boton-eliminar {
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--torii-dark);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.boton-eliminar:hover {
+  text-decoration: underline;
 }

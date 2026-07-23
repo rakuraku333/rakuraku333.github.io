@@ -6,6 +6,14 @@
   <title>billetera — raku</title>
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#BE3A34">
+  <!-- iOS no lee manifest.json para "Agregar a inicio": usa estas etiquetas. -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Billetera">
+  <link rel="apple-touch-icon" href="iconos/icon-512.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
@@ -20,6 +28,12 @@
   <script src="js/logica.js" defer></script>
   <script src="js/ui.js" defer></script>
   <script src="js/main.js" defer></script>
+  <script>
+    // Sin service worker Chrome/Android no ofrece "Instalar app" (iOS no lo necesita).
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+    }
+  </script>
 </head>
 <body>
   <div class="contenedor-app">
@@ -94,32 +108,38 @@
       <p id="aviso-transacciones-vacio" class="aviso-vacio" hidden></p>
       <ul id="lista-transacciones" class="lista-transacciones" hidden></ul>
     </section>
-
-    <button
-      type="button"
-      id="boton-fab"
-      class="boton-fab"
-    >+</button>
-
-    <nav class="bottom-nav" aria-label="Navegación de la billetera">
-      <a href="#" class="tab-nav tab-nav-activo" aria-current="page">
-        <span aria-hidden="true">🏠</span>
-        <span>Inicio</span>
-      </a>
-      <a href="#" class="tab-nav" aria-disabled="true" title="Próximamente" onclick="return false;">
-        <span aria-hidden="true">🔁</span>
-        <span>Movimientos</span>
-      </a>
-      <a href="#" class="tab-nav" aria-disabled="true" title="Próximamente" onclick="return false;">
-        <span aria-hidden="true">💳</span>
-        <span>Deudas</span>
-      </a>
-      <a href="#" class="tab-nav" aria-disabled="true" title="Próximamente" onclick="return false;">
-        <span aria-hidden="true">👤</span>
-        <span>Perfil</span>
-      </a>
-    </nav>
   </div>
+
+  <section id="pantalla-movimientos" class="pantalla-movimientos" hidden>
+    <h2 class="titulo-seccion">Movimientos</h2>
+    <p id="aviso-movimientos-vacio" class="aviso-vacio" hidden></p>
+    <ul id="lista-movimientos" class="lista-transacciones" hidden></ul>
+  </section>
+
+  <button
+    type="button"
+    id="boton-fab"
+    class="boton-fab"
+  >+</button>
+
+  <nav class="bottom-nav" aria-label="Navegación de la billetera">
+    <a href="#" id="tab-inicio" class="tab-nav tab-nav-activo" aria-current="page">
+      <span aria-hidden="true">🏠</span>
+      <span>Inicio</span>
+    </a>
+    <a href="#" id="tab-movimientos" class="tab-nav">
+      <span aria-hidden="true">🔁</span>
+      <span>Movimientos</span>
+    </a>
+    <a href="#" class="tab-nav" aria-disabled="true" title="Próximamente" onclick="return false;">
+      <span aria-hidden="true">💳</span>
+      <span>Deudas</span>
+    </a>
+    <a href="#" class="tab-nav" aria-disabled="true" title="Próximamente" onclick="return false;">
+      <span aria-hidden="true">👤</span>
+      <span>Perfil</span>
+    </a>
+  </nav>
 
   <dialog id="sheet-carga" class="sheet-carga">
     <div class="handle-sheet" aria-hidden="true"></div>
@@ -139,6 +159,7 @@
     <span class="pill-billetera">Billetera 1 <span aria-hidden="true">▾</span></span>
 
     <button type="button" id="boton-agregar" class="boton-principal" disabled>Agregar</button>
+    <button type="button" id="boton-borrar" class="boton-eliminar" hidden>Borrar</button>
   </dialog>
 </body>
 </html>
