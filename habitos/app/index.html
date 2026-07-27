@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#BE3A34">
+  <title>hábitos — raku</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="iconos/icon-192.png">
+  <link rel="apple-touch-icon" href="iconos/icon-192.png">
+
+  <script type="module" crossorigin src="./assets/index-CCUEPxVj.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CmtsUIdV.css">
+</head>
+<body>
+  <div class="contenedor">
+    <header class="encabezado">
+      <h1>hábitos</h1>
+    </header>
+    <p class="subtitulo">Seguimiento de rachas diarias.</p>
+    <p id="frase-del-dia" class="frase-del-dia"></p>
+
+    <main>
+      <p id="mensaje" class="mensaje" role="alert" hidden></p>
+
+      <section class="tarjeta" aria-labelledby="titulo-nuevo-habito">
+        <h2 id="titulo-nuevo-habito">Nuevo hábito</h2>
+        <form id="formulario-habito" novalidate>
+          <div class="fila-campos">
+            <div class="campo">
+              <label for="campo-nombre">Nombre</label>
+              <input type="text" id="campo-nombre" placeholder="Leer, meditar, caminar…">
+            </div>
+            <button type="submit" class="boton-principal">Agregar</button>
+          </div>
+          <div class="fila-campos">
+            <div class="campo campo-ancho">
+              <label for="campo-descripcion">Descripción (opcional)</label>
+              <textarea id="campo-descripcion" rows="2" placeholder="¿Por qué este hábito? ¿Cuál es la meta?"></textarea>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="tarjeta" aria-labelledby="titulo-recordatorio">
+        <h2 id="titulo-recordatorio">Recordatorio diario</h2>
+        <div class="fila-campos">
+          <div class="campo">
+            <label for="campo-hora-recordatorio">Hora</label>
+            <input type="time" id="campo-hora-recordatorio" value="20:00">
+          </div>
+          <button type="button" id="boton-recordatorio" class="boton-principal" aria-pressed="false">Activar recordatorio diario</button>
+        </div>
+      </section>
+
+      <section class="tarjeta" id="tarjeta-ranking" aria-labelledby="titulo-ranking" hidden>
+        <h2 id="titulo-ranking">Ranking del mes</h2>
+        <ol id="ranking-habitos" class="ranking-habitos"></ol>
+      </section>
+
+      <section class="tarjeta" aria-labelledby="titulo-habitos">
+        <h2 id="titulo-habitos">Hábitos</h2>
+        <p id="aviso-sin-habitos" class="aviso-vacio" hidden></p>
+        <ul id="lista-habitos" class="lista-habitos"></ul>
+      </section>
+      <section class="tarjeta" aria-labelledby="titulo-tareas">
+        <h2 id="titulo-tareas">Tareas de hoy</h2>
+        <form id="formulario-tarea" novalidate>
+          <div class="fila-campos">
+            <div class="campo campo-ancho">
+              <label for="campo-tarea">Nueva tarea</label>
+              <input type="text" id="campo-tarea" placeholder="Comprar pan, responder un mail…">
+            </div>
+            <button type="submit" class="boton-principal">Agregar</button>
+          </div>
+        </form>
+        <p id="aviso-sin-tareas" class="aviso-vacio" hidden></p>
+        <ul id="lista-tareas" class="lista-tareas"></ul>
+
+        <div class="fila-campos backup">
+          <button type="button" id="boton-exportar-backup" class="boton-secundario">Exportar backup</button>
+          <label for="campo-importar-backup" class="boton-secundario">Importar backup
+            <input type="file" id="campo-importar-backup" accept="application/json" hidden>
+          </label>
+        </div>
+      </section>
+    </main>
+  </div>
+
+</body>
+</html>
