@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pilates Base — gestión de un estudio de pilates: alumnos, rutinas y una biblioteca de 328 ejercicios. Next.js, SQLite y Docker.">
+  <title>Pilates Base — raku</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta property="og:title" content="Pilates Base — gestión de estudio de pilates">
+  <meta property="og:description" content="Alumnos, rutinas y una biblioteca de 328 ejercicios. Next.js, SQLite y Docker, con un modo demo separado de los datos reales.">
+  <meta property="og:image" content="https://rakuraku333.github.io/capturas/pilates-logo.jpg">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/componentes.css">
+</head>
+<body>
+  <div class="contenedor">
+    <nav class="navegacion">
+      <a class="marca-nav" href="../index.html">
+        <svg class="isotipo-torii" viewBox="0 0 48 48" width="22" height="22" aria-hidden="true">
+          <rect x="2" y="6" width="44" height="5" rx="1" />
+          <rect x="22" y="11" width="4" height="6" />
+          <rect x="7" y="17" width="34" height="4" rx="1" />
+          <rect x="11" y="11" width="5" height="31" rx="1" />
+          <rect x="32" y="11" width="5" height="31" rx="1" />
+        </svg>
+        <span>raku</span>
+      </a>
+      <div class="enlaces-nav">
+        <a href="../proyectos/index.html">proyectos</a>
+        <a href="../sobre-mi/index.html">sobre mí</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="portada">
+        <img class="logo-caso" src="../capturas/pilates-logo.jpg" alt="Logo de Pilates Base" width="96" height="71">
+        <h1>Pilates Base</h1>
+        <p>Gestión real de un estudio de pilates: alumnos, rutinas asignadas y seguimiento de progreso. La uso con datos reales — lo que ves en la demo es una versión aparte, sin información de terceros.</p>
+        <div class="acciones-portada">
+          <a class="boton-principal" href="https://pilates-demo.onrender.com" target="_blank" rel="noopener">Ver demo en vivo →</a>
+        </div>
+      </section>
+
+      <section class="seccion" aria-labelledby="titulo-que-es">
+        <h2 id="titulo-que-es">Qué resuelve</h2>
+        <p>Un estudio de pilates necesita saber quién viene, qué rutina tiene asignada y cómo va progresando — sin planillas sueltas ni WhatsApp perdido. Pilates Base centraliza eso: alumnos, rutinas y una biblioteca propia de <strong>328 ejercicios</strong> para armarlas.</p>
+      </section>
+
+      <section class="seccion" aria-labelledby="titulo-demo">
+        <h2 id="titulo-demo">Por qué la demo es aparte</h2>
+        <p>Los datos reales de esta app son de otras personas — los alumnos del estudio — así que no pueden estar expuestos en una demo pública. La versión que probás corre con una <strong>base de datos efímera</strong>: se recrea desde cero (migraciones + datos de ejemplo + usuario demo) cada vez que el contenedor arranca. Nada de lo que cargues ahí persiste ni se mezcla con producción.</p>
+        <p><span class="etiqueta">arranque en frío — tarda ~1 min en despertar</span></p>
+      </section>
+
+      <section class="seccion" aria-labelledby="titulo-hecho">
+        <h2 id="titulo-hecho">Cómo está hecha</h2>
+        <p><strong>Next.js + SQLite</strong>, desplegada con <strong>Docker</strong> en Render. El código fuente es privado — a diferencia de las apps chicas del hub (vanilla, sin build), esta es la más grande del portfolio y vive en su propio repo aparte.</p>
+      </section>
+    </main>
+
+    <footer class="pie">
+      <span>raku · 2026</span>
+    </footer>
+  </div>
+</body>
+</html>
