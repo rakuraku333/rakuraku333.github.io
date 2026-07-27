@@ -1,0 +1,94 @@
+/* Estructura general de la bitácora: fondo, tipografía base, contenedor y espaciado.
+   Los componentes (navbar, hilo y burbujas de la bitácora) viven en componentes.css. */
+
+/* Tipografía display de la marca: solo para títulos. Autoalojada (subset latin,
+   alcanza para el español). El cuerpo sigue en system-ui: contraste calmo. */
+@font-face {
+  font-family: 'Zen Old Mincho';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fuentes/zen-old-mincho-700-latin.woff2') format('woff2');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--cream-bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+.contenedor {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.portada {
+  margin: 56px 0 64px;
+}
+
+.torii-portada {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.portada h1 {
+  margin: 0 0 16px;
+  font-family: 'Zen Old Mincho', Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.1rem, 4.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  max-width: 20ch;
+}
+
+.portada p {
+  margin: 0;
+  color: var(--ink-soft);
+  max-width: 52ch;
+}
+
+/* Secciones separadas por línea fina y mucho aire, en vez de sombras o fondos. */
+.seccion {
+  border-top: 0.5px solid var(--line);
+  padding: 48px 0;
+}
+
+.seccion h2 {
+  margin: 0 0 24px;
+  font-family: 'Zen Old Mincho', Georgia, 'Times New Roman', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.seccion p {
+  margin: 0 0 12px;
+  max-width: 60ch;
+}
+
+.pie {
+  border-top: 0.5px solid var(--line);
+  padding-top: 24px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+@media (max-width: 560px) {
+  .contenedor {
+    padding: 24px 16px 40px;
+  }
+
+  .portada {
+    margin: 48px 0 56px;
+  }
+}
