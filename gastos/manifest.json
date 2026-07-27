@@ -1,8 +1,8 @@
 {
-  "name": "Billetera — raku",
-  "short_name": "Billetera",
-  "description": "Registro simple de gastos e ingresos, con historial.",
-  "start_url": "./index.html",
+  "name": "rakucash",
+  "short_name": "rakucash",
+  "description": "Billetera personal: gastos, ingresos, deudas y análisis. Funciona sin conexión.",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#F7F1E4",

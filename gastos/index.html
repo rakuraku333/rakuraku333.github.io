@@ -2,109 +2,253 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>gastos — raku</title>
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>rakucash</title>
+  <link rel="icon" href="iconos/icon-192.png">
 
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#BE3A34">
+  <!-- iOS no lee manifest.json para "Agregar a inicio": usa estas etiquetas. -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="rakucash">
+  <link rel="apple-touch-icon" href="iconos/icon-512.png">
 
-  <!-- El orden importa: cada archivo usa lo que definen los anteriores. -->
-  <script src="js/constantes.js" defer></script>
-  <script src="js/storage.js" defer></script>
-  <script src="js/logica.js" defer></script>
-  <script src="js/ui.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
+
+
+  <script>
+    // Sin service worker Chrome/Android no ofrece "Instalar app" (iOS no lo necesita).
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+    }
+  </script>
+  <script type="module" crossorigin src="./assets/index-BVuSVbS0.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DY7M9ETe.css">
 </head>
 <body>
-  <div class="contenedor">
-    <nav class="navegacion">
-      <a class="marca-nav" href="../index.html">
-        <svg class="isotipo-torii" viewBox="0 0 48 48" width="22" height="22" aria-hidden="true">
-          <rect x="2" y="6" width="44" height="5" rx="1" />
-          <rect x="22" y="11" width="4" height="6" />
-          <rect x="7" y="17" width="34" height="4" rx="1" />
-          <rect x="11" y="11" width="5" height="31" rx="1" />
-          <rect x="32" y="11" width="5" height="31" rx="1" />
-        </svg>
-        <span>raku</span>
-      </a>
-      <div class="enlaces-nav">
-        <a href="../proyectos/index.html">proyectos</a>
-        <a href="../sobre-mi/index.html">sobre mí</a>
+  <a href="../index.html" class="volver-hub">← raku</a>
+  <div class="pantalla-billetera">
+    <p id="mensaje" class="mensaje" role="alert" hidden></p>
+
+    <header class="encabezado-billetera">
+      <div class="saludo">
+        <p>Hola, <strong id="saludo-nombre">Iña</strong></p>
       </div>
-    </nav>
-
-    <header class="encabezado">
-      <h1>gastos</h1>
+      <button
+        type="button"
+        id="boton-selector-billetera"
+        class="pill-billetera"
+      >
+        <span id="billetera-activa-label">Todas</span> <span aria-hidden="true">▾</span>
+      </button>
     </header>
-    <p class="subtitulo">Registro simple de gastos diarios.</p>
-    <p><a class="boton-secundario" href="billetera/index.html">Ver billetera (nuevo) →</a></p>
 
-    <main>
-      <p id="mensaje" class="mensaje" role="alert" hidden></p>
+    <section class="seccion-saldo" aria-label="Saldo total">
+      <p class="saldo-label">Saldo total</p>
+      <p class="saldo-monto" id="saldo-total">$0</p>
+    </section>
 
-      <section class="tarjeta" aria-labelledby="titulo-nuevo-gasto">
-        <h2 id="titulo-nuevo-gasto">Nuevo gasto</h2>
-        <form id="formulario-gasto" novalidate>
-          <div class="fila-campos">
-            <div class="campo">
-              <label for="campo-monto">Monto</label>
-              <input type="number" id="campo-monto" min="0" step="0.01" placeholder="0.00">
-            </div>
-            <div class="campo">
-              <label for="campo-categoria">Categoría</label>
-              <select id="campo-categoria"></select>
-            </div>
-            <div class="campo">
-              <label for="campo-fecha">Fecha</label>
-              <input type="date" id="campo-fecha">
-            </div>
-            <button type="submit" class="boton-principal">Agregar</button>
-          </div>
-        </form>
-      </section>
+    <section class="resumen-ingreso-egreso" aria-label="Resumen de ingresos y egresos">
+      <div class="card-resumen">
+        <p class="resumen-monto resumen-ingreso" id="resumen-ingresos">$0</p>
+        <p class="resumen-label">Ingresos</p>
+      </div>
+      <div class="card-resumen">
+        <p class="resumen-monto resumen-egreso" id="resumen-egresos">$0</p>
+        <p class="resumen-label">Egresos</p>
+      </div>
+    </section>
 
-      <section class="tarjeta" aria-labelledby="titulo-filtros">
-        <h2 id="titulo-filtros">Filtrar por fecha</h2>
-        <div class="fila-campos">
-          <div class="campo">
-            <label for="filtro-desde">Desde</label>
-            <input type="date" id="filtro-desde">
-          </div>
-          <div class="campo">
-            <label for="filtro-hasta">Hasta</label>
-            <input type="date" id="filtro-hasta">
-          </div>
-          <button type="button" id="boton-limpiar-filtros" class="boton-secundario">Limpiar</button>
+    <section class="seccion-analisis" aria-labelledby="titulo-analisis">
+      <h2 class="titulo-seccion" id="titulo-analisis">En qué gastás este mes</h2>
+      <p id="aviso-analisis-vacio" class="aviso-vacio" hidden></p>
+      <div id="lista-categorias" class="lista-categorias"></div>
+
+      <div class="resumen-mensual">
+        <div class="mes-col">
+          <p class="mes-label">Este mes</p>
+          <p class="mes-metric">Gastado <span id="mes-actual-egreso">$0</span></p>
+          <p class="mes-metric">Saldo <span id="mes-actual-saldo">$0</span></p>
         </div>
-      </section>
-
-      <section class="tarjeta" aria-labelledby="titulo-totales">
-        <h2 id="titulo-totales">Totales <span id="nota-filtro" class="nota-filtro" hidden>(del período filtrado)</span></h2>
-        <p class="total-general">Total: <strong id="total-general"></strong></p>
-        <ul id="lista-totales-categoria" class="lista-totales"></ul>
-      </section>
-
-      <section class="tarjeta" aria-labelledby="titulo-gastos">
-        <h2 id="titulo-gastos">Gastos</h2>
-        <p id="aviso-lista-vacia" class="aviso-vacio" hidden></p>
-        <div class="envoltorio-tabla">
-          <table id="tabla-gastos">
-            <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Categoría</th>
-                <th class="alinear-derecha">Monto</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="cuerpo-tabla-gastos"></tbody>
-          </table>
+        <div class="mes-col">
+          <p class="mes-label">Mes pasado</p>
+          <p class="mes-metric">Gastado <span id="mes-anterior-egreso">$0</span></p>
+          <p class="mes-metric">Saldo <span id="mes-anterior-saldo">$0</span></p>
         </div>
-      </section>
-    </main>
+      </div>
+      <p class="mes-delta" id="mes-delta"></p>
+    </section>
+
+    <section class="seccion-deuda" aria-labelledby="titulo-deuda">
+      <div class="fila-titulo-seccion">
+        <h2 class="titulo-seccion" id="titulo-deuda">Deudas</h2>
+        <button type="button" id="boton-nueva-deuda" class="enlace-ver-todos">+ Deuda</button>
+      </div>
+      <p id="aviso-deudas-vacio" class="aviso-vacio" hidden></p>
+      <div id="lista-deudas" class="lista-deudas"></div>
+    </section>
+
+    <section class="seccion-transacciones" aria-labelledby="titulo-transacciones">
+      <div class="fila-titulo-seccion">
+        <h2 class="titulo-seccion" id="titulo-transacciones">Transacciones recientes</h2>
+        <a href="#" class="enlace-ver-todos" aria-disabled="true" title="Próximamente" onclick="return false;">Ver todos</a>
+      </div>
+      <p id="aviso-transacciones-vacio" class="aviso-vacio" hidden></p>
+      <ul id="lista-transacciones" class="lista-transacciones" hidden></ul>
+    </section>
   </div>
+
+  <section id="pantalla-movimientos" class="pantalla-movimientos" hidden>
+    <h2 class="titulo-seccion">Movimientos</h2>
+    <div class="filtros-movimientos">
+      <input type="search" id="filtro-texto" class="input-filtro" placeholder="Buscar categoría o nota…" autocomplete="off">
+      <div class="filtro-rango" role="group" aria-label="Rango de fechas">
+        <button type="button" data-rango="semana">Semana</button>
+        <button type="button" data-rango="mes">Mes</button>
+        <button type="button" data-rango="todo" class="activa">Todo</button>
+        <button type="button" data-rango="custom">Rango</button>
+      </div>
+      <div id="rango-custom" class="rango-custom" hidden>
+        <input type="date" id="filtro-desde" aria-label="Desde">
+        <input type="date" id="filtro-hasta" aria-label="Hasta">
+      </div>
+    </div>
+    <p id="aviso-movimientos-vacio" class="aviso-vacio" hidden></p>
+    <ul id="lista-movimientos" class="lista-transacciones" hidden></ul>
+
+  </section>
+
+  <section id="pantalla-perfil" class="pantalla-perfil" hidden>
+    <h2 class="titulo-seccion">Perfil</h2>
+
+    <div class="perfil-campo">
+      <label for="input-nombre">Tu nombre</label>
+      <input type="text" id="input-nombre" class="input-filtro" maxlength="20" autocomplete="off" placeholder="Tu nombre">
+    </div>
+
+    <div class="perfil-campo">
+      <label for="select-moneda">Moneda</label>
+      <select id="select-moneda" class="input-filtro"></select>
+    </div>
+
+    <div class="acciones-datos">
+      <h3 class="titulo-datos">Copia de seguridad</h3>
+      <p class="nota-datos">Tus datos viven solo en este dispositivo. Exportá un respaldo para no perderlos.</p>
+      <div class="botones-datos">
+        <button type="button" id="boton-exportar" class="boton-datos">Exportar respaldo</button>
+        <button type="button" id="boton-importar" class="boton-datos">Importar respaldo</button>
+      </div>
+      <input type="file" id="input-importar" accept="application/json,.json" hidden>
+    </div>
+
+    <div class="acciones-datos zona-peligro">
+      <h3 class="titulo-datos">Borrar todo</h3>
+      <p class="nota-datos">Elimina TODAS tus transacciones, categorías y deudas de este dispositivo. No se puede deshacer.</p>
+      <button type="button" id="boton-borrar-todo" class="boton-datos boton-peligro">Borrar todos los datos</button>
+    </div>
+  </section>
+
+  <button
+    type="button"
+    id="boton-fab"
+    class="boton-fab"
+  >+</button>
+
+  <nav class="bottom-nav" aria-label="Navegación de la billetera">
+    <a href="#" id="tab-inicio" class="tab-nav tab-nav-activo" aria-current="page">
+      <span aria-hidden="true">🏠</span>
+      <span>Inicio</span>
+    </a>
+    <a href="#" id="tab-movimientos" class="tab-nav">
+      <span aria-hidden="true">🔁</span>
+      <span>Movimientos</span>
+    </a>
+    <a href="#" id="tab-perfil" class="tab-nav">
+      <span aria-hidden="true">👤</span>
+      <span>Perfil</span>
+    </a>
+  </nav>
+
+  <dialog id="sheet-carga" class="sheet-carga">
+    <div class="handle-sheet" aria-hidden="true"></div>
+
+    <div class="segmented-control" role="group" aria-label="Tipo de transacción">
+      <button type="button" class="segmented-opcion" data-tipo="egreso">Egreso</button>
+      <button type="button" class="segmented-opcion" data-tipo="ingreso">Ingreso</button>
+    </div>
+
+    <div class="monto-display">
+      <span aria-hidden="true">$</span>
+      <input type="text" inputmode="numeric" id="input-monto" class="monto-input" placeholder="0" maxlength="9" aria-label="Monto">
+    </div>
+
+    <div id="chips-categoria" class="fila-chips"></div>
+
+    <label class="campo-fecha">
+      <span class="etiqueta-fecha">Fecha</span>
+      <input type="date" id="input-fecha" class="input-fecha">
+    </label>
+
+    <label class="campo-fecha">
+      <span class="etiqueta-fecha">Billetera</span>
+      <select id="select-billetera-transaccion" class="input-filtro"></select>
+    </label>
+
+    <button type="button" id="boton-agregar" class="boton-principal" disabled>Agregar</button>
+    <button type="button" id="boton-borrar" class="boton-eliminar" hidden>Borrar</button>
+  </dialog>
+
+  <dialog id="sheet-categoria" class="sheet-carga sheet-categoria">
+    <div class="handle-sheet" aria-hidden="true"></div>
+    <h3 class="titulo-datos">Nueva categoría</h3>
+    <input type="text" id="input-categoria-nombre" class="input-categoria" placeholder="Nombre (ej. Mascotas)" maxlength="20" autocomplete="off">
+    <div id="grid-emojis" class="grid-emojis" role="group" aria-label="Elegí un ícono"></div>
+    <p id="error-categoria" class="error-categoria" hidden></p>
+    <button type="button" id="boton-guardar-categoria" class="boton-principal" disabled>Agregar categoría</button>
+    <button type="button" id="boton-cancelar-categoria" class="boton-eliminar">Cancelar</button>
+  </dialog>
+
+  <dialog id="sheet-billeteras" class="sheet-carga sheet-categoria">
+    <div class="handle-sheet" aria-hidden="true"></div>
+    <h3 class="titulo-datos">Billeteras</h3>
+    <div id="lista-selector-billeteras" class="lista-selector-billeteras"></div>
+    <button type="button" id="boton-nueva-billetera-desde-selector" class="boton-datos">+ Nueva billetera</button>
+    <button type="button" id="boton-cerrar-selector-billeteras" class="boton-eliminar">Cerrar</button>
+  </dialog>
+
+  <dialog id="sheet-billetera" class="sheet-carga sheet-categoria">
+    <div class="handle-sheet" aria-hidden="true"></div>
+    <h3 class="titulo-datos">Nueva billetera</h3>
+    <input type="text" id="input-billetera-nombre" class="input-categoria" placeholder="Nombre (ej. Efectivo, Banco)" maxlength="24" autocomplete="off">
+    <label class="campo-deuda"><span>Saldo inicial</span><input type="number" id="input-billetera-saldo" class="input-deuda-num" min="0" inputmode="numeric" placeholder="0"></label>
+    <p id="error-billetera" class="error-categoria" hidden></p>
+    <button type="button" id="boton-guardar-billetera" class="boton-principal" disabled>Crear billetera</button>
+    <button type="button" id="boton-cancelar-billetera" class="boton-eliminar">Cancelar</button>
+  </dialog>
+
+  <dialog id="sheet-deuda" class="sheet-carga sheet-categoria">
+    <div class="handle-sheet" aria-hidden="true"></div>
+    <h3 class="titulo-datos">Nueva deuda</h3>
+    <input type="text" id="input-deuda-nombre" class="input-categoria" placeholder="Nombre (ej. Tarjeta Visa)" maxlength="30" autocomplete="off">
+    <label class="campo-deuda"><span>Monto total</span><input type="number" id="input-deuda-total" class="input-deuda-num" min="0" inputmode="numeric" placeholder="0"></label>
+    <label class="campo-deuda"><span>Ya pagado</span><input type="number" id="input-deuda-pagado" class="input-deuda-num" min="0" inputmode="numeric" placeholder="0"></label>
+    <label class="campo-deuda"><span>Próxima cuota</span><input type="date" id="input-deuda-cuota" class="input-fecha"></label>
+    <p id="error-deuda" class="error-categoria" hidden></p>
+    <button type="button" id="boton-guardar-deuda" class="boton-principal" disabled>Agregar deuda</button>
+    <button type="button" id="boton-cancelar-deuda" class="boton-eliminar">Cancelar</button>
+  </dialog>
+
+  <dialog id="sheet-pago" class="sheet-carga sheet-categoria">
+    <div class="handle-sheet" aria-hidden="true"></div>
+    <h3 class="titulo-datos">Registrar pago</h3>
+    <p id="pago-deuda-nombre" class="nota-datos"></p>
+    <label class="campo-deuda"><span>Monto del pago</span><input type="number" id="input-pago-monto" class="input-deuda-num" min="0" inputmode="numeric" placeholder="0"></label>
+    <p id="error-pago" class="error-categoria" hidden></p>
+    <button type="button" id="boton-guardar-pago" class="boton-principal" disabled>Registrar pago</button>
+    <button type="button" id="boton-cancelar-pago" class="boton-eliminar">Cancelar</button>
+  </dialog>
 </body>
 </html>
