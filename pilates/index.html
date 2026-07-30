@@ -29,6 +29,7 @@
       </a>
       <div class="enlaces-nav">
         <a href="../proyectos/index.html">proyectos</a>
+        <a href="../servicios/index.html">servicios</a>
         <a href="../sobre-mi/index.html">sobre mí</a>
       </div>
     </nav>
@@ -54,6 +55,40 @@
         <p><span class="etiqueta">arranque en frío — tarda ~1 min en despertar</span></p>
       </section>
 
+      <section class="seccion" aria-labelledby="titulo-capturas">
+        <h2 id="titulo-capturas">Capturas</h2>
+        <div class="lista-destacados">
+          <button type="button" class="tarjeta-destacada boton-captura" data-full="../capturas/pilates-landing.webp" data-alt="Landing pública de Pilates Base">
+            <img src="../capturas/pilates-landing.webp" alt="Landing pública de Pilates Base" loading="lazy">
+            <div class="texto-destacada">
+              <h3>Landing</h3>
+              <p>Presentación del producto para profes de pilates.</p>
+            </div>
+          </button>
+          <button type="button" class="tarjeta-destacada boton-captura" data-full="../capturas/pilates-biblioteca.webp" data-alt="Biblioteca de ejercicios con filtros">
+            <img src="../capturas/pilates-biblioteca.webp" alt="Biblioteca de ejercicios con filtros" loading="lazy">
+            <div class="texto-destacada">
+              <h3>Biblioteca de ejercicios</h3>
+              <p>328 ejercicios filtrables por nivel, categoría y grupo muscular.</p>
+            </div>
+          </button>
+          <button type="button" class="tarjeta-destacada boton-captura" data-full="../capturas/pilates-rutinas.webp" data-alt="Listado de rutinas armadas">
+            <img src="../capturas/pilates-rutinas.webp" alt="Listado de rutinas armadas" loading="lazy">
+            <div class="texto-destacada">
+              <h3>Rutinas</h3>
+              <p>Secuencias de ejercicios con series, repeticiones y duración.</p>
+            </div>
+          </button>
+          <button type="button" class="tarjeta-destacada boton-captura" data-full="../capturas/pilates-ficha-ejercicio.webp" data-alt="Ficha de detalle de un ejercicio">
+            <img src="../capturas/pilates-ficha-ejercicio.webp" alt="Ficha de detalle de un ejercicio" loading="lazy">
+            <div class="texto-destacada">
+              <h3>Ficha de ejercicio</h3>
+              <p>Descripción, instrucciones, clasificación e imágenes por ejercicio.</p>
+            </div>
+          </button>
+        </div>
+      </section>
+
       <section class="seccion" aria-labelledby="titulo-hecho">
         <h2 id="titulo-hecho">Cómo está hecha</h2>
         <p><strong>Next.js + SQLite</strong>, desplegada con <strong>Docker</strong> en Render. El código fuente es privado — a diferencia de las apps chicas del hub (vanilla, sin build), esta es la más grande del portfolio y vive en su propio repo aparte.</p>
@@ -64,5 +99,36 @@
       <span>raku · 2026</span>
     </footer>
   </div>
+
+  <dialog id="dialogo-captura" class="dialogo-imagen">
+    <div class="contenido-dialogo">
+      <header class="encabezado-dialogo">
+        <h2 id="dialogo-captura-titulo"></h2>
+        <button type="button" id="boton-cerrar-captura" class="boton-cerrar" aria-label="Cerrar">×</button>
+      </header>
+      <img id="dialogo-captura-imagen" class="imagen-dialogo" src="" alt="">
+    </div>
+  </dialog>
+
+  <script>
+    const dialogoCaptura = document.getElementById("dialogo-captura");
+    const imagenDialogoCaptura = document.getElementById("dialogo-captura-imagen");
+    const tituloDialogoCaptura = document.getElementById("dialogo-captura-titulo");
+    const botonCerrarCaptura = document.getElementById("boton-cerrar-captura");
+
+    document.querySelectorAll(".boton-captura").forEach((boton) => {
+      boton.addEventListener("click", () => {
+        imagenDialogoCaptura.src = boton.dataset.full;
+        imagenDialogoCaptura.alt = boton.dataset.alt;
+        tituloDialogoCaptura.textContent = boton.querySelector("h3").textContent;
+        dialogoCaptura.showModal();
+      });
+    });
+
+    botonCerrarCaptura.addEventListener("click", () => dialogoCaptura.close());
+    dialogoCaptura.addEventListener("click", (evento) => {
+      if (evento.target === dialogoCaptura) dialogoCaptura.close();
+    });
+  </script>
 </body>
 </html>

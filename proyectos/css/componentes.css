@@ -95,3 +95,15 @@ a.tarjeta-app:hover h3 {
   border-radius: 8px;
   padding: 2px 8px;
 }
+
+/* Captura dentro de la tarjeta de app: bleed hasta los bordes, esquinas superiores redondeadas. */
+.tarjeta-app img {
+  display: block;
+  width: calc(100% + 40px);
+  margin: -20px -20px 14px;
+  border-radius: 11px 11px 0 0;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+  border-bottom: 0.5px solid var(--line);
+}

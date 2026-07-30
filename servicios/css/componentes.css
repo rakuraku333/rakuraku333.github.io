@@ -309,7 +309,7 @@
   margin-bottom: 20px;
 }
 
-/* Lightbox de capturas: dialog nativo, mismo patrón que /galeria. */
+/* Lightbox de capturas: dialog nativo, mismo patrón que /galeria y /pilates. */
 .boton-captura {
   cursor: pointer;
   font: inherit;
@@ -368,4 +368,14 @@
   max-height: 80vh;
   margin: 0 auto;
   border-radius: 8px;
+}
+
+/* Banner ocaso: mismo canvas que /ocaso, recortado a tira de header. */
+.banner-ocaso {
+  margin: 32px 0 0;
+}
+
+.banner-ocaso #escena {
+  aspect-ratio: 21/9;
+  max-height: 260px;
 }
