@@ -1,0 +1,27 @@
+---
+// Bitácora pública — lista completa de entradas publicadas, con chips de tag y
+// filtro. El editor privado (borradores + exportación) vive en /blog/taller/.
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  titulo="bitácora — raku"
+  descripcion="Notas cortas sobre lo que voy aprendiendo — código, pilates, presencia."
+  navActiva="/blog/"
+  guiones={[
+    '/blog/datos/entradas-publicadas.js',
+    '/blog/js/logica.js',
+    '/js/blog-reader.js',
+  ]}
+>
+  <section class="portada revelar">
+    <p class="etiqueta-seccion etiqueta-seccion--ai">Bitácora</p>
+    <h1>notas sobre lo que voy aprendiendo</h1>
+    <p>Código, pilates, presencia. Corto, en primera persona, cuando algo me resulta útil de escribir.</p>
+  </section>
+
+  <section class="seccion revelar">
+    <p id="aviso-sin-notas" class="aviso-vacio" hidden></p>
+    <div id="filtros-bitacora" class="filtros-bitacora" hidden></div>
+    <ol id="hilo-bitacora" class="hilo-bitacora"></ol>
+  </section>
+</Base>

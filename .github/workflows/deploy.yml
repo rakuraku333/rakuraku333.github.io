@@ -1,0 +1,63 @@
+name: Publicar en GitHub Pages
+
+# Cada push a main dispara un build de Astro y lo publica con el Action
+# oficial de Pages (ya no es "GitHub Pages sirviendo la rama directo": ahora
+# hay un paso de build en el medio porque el sitio es un output estático).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Si se dispara un push nuevo mientras otro deploy está corriendo, se cancela
+# el anterior: siempre gana la versión más reciente.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repo
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar el sitio estático
+        run: npm run build
+
+      # Frena el deploy si el build quedó con rutas rotas o contraste por debajo
+      # de AA, en vez de publicarlo y enterarse mirando el sitio.
+      - name: Verificar el build
+        run: node verificar.mjs
+
+      - name: Preparar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir el artifact de Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

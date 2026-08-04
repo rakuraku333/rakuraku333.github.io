@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  titulo="ocaso — raku"
+  descripcion="Un torii girando contra un ocaso synthwave, algoritmos porteados de waveforge."
+  hojas={['/ocaso/css/ocaso.css']}
+  guiones={['/ocaso/js/ocaso.js']}
+>
+  <section class="portada revelar">
+    <h1>ocaso</h1>
+    <p>Un torii girando contra un ocaso synthwave; algoritmos porteados de <a href="/waveforge/">waveforge</a>.</p>
+  </section>
+
+  <section class="escena-ocaso">
+    <canvas id="escena"></canvas>
+  </section>
+</Base>

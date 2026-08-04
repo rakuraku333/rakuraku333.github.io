@@ -1,0 +1,263 @@
+/* Base del sitio: reset, tipografía, foco, contenedores y el shell compartido
+   (nav + pie). Reemplaza al viejo layout.css, que era por-app; esto es único
+   y lo carga Base.astro en todas las páginas. Los componentes propios de cada
+   app (tarjetas, listas, formularios) siguen en el componentes.css de esa app. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Tipografía display de la marca: solo para títulos. Autoalojada (subset latin,
+   alcanza para el español). El cuerpo sigue en system-ui: contraste calmo. */
+@font-face {
+  font-family: 'Zen Old Mincho';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/css/fuentes/zen-old-mincho-700-latin.woff2') format('woff2');
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--alto-nav);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--cream-bg);
+  color: var(--ink);
+  font-family: var(--fuente-cuerpo);
+  line-height: 1.6;
+}
+
+/* Sin esto una captura de 960px se dibuja a tamaño natural y desborda su tarjeta,
+   estirando la página a lo ancho. Va en el reset, no en cada componente. */
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fuente-display);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 16px;
+}
+
+a {
+  color: var(--ai);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--ai-dark);
+}
+
+code {
+  background-color: var(--cream-card);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ai);
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: var(--torii-soft);
+}
+
+/* ---- Contenedores y secciones: el hub se ensancha, la lectura larga sigue angosta. ---- */
+
+.contenedor {
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.contenedor--lectura {
+  max-width: var(--ancho-lectura);
+}
+
+.seccion {
+  border-top: 0.5px solid var(--line);
+  padding: 48px 0;
+}
+
+/* ---- Nav del hub: fija arriba, transparente hasta que se scrollea. ---- */
+
+.navegacion {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: var(--alto-nav);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 16px;
+  /* La barra es full-bleed (cuelga del body, no del contenedor), pero sus ítems
+     se alinean con el contenido: el padding replica el margen del .contenedor.
+     Con margin negativo la barra se pasaba 20px y aparecía scroll horizontal. */
+  padding: 0 max(20px, calc((100% - var(--ancho-max)) / 2 + 20px));
+  background-color: transparent;
+  border-bottom: 0.5px solid transparent;
+  transition: background-color var(--transicion-base), border-color var(--transicion-base);
+}
+
+.navegacion.desplazada {
+  background-color: #F7F1E4CC;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom-color: var(--line);
+}
+
+.marca-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  font-family: var(--fuente-display);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* El isotipo del torii lo dibuja Nav.astro en todas las páginas: el fill vive
+   acá, no repetido en la hoja de cada app. */
+.isotipo-torii {
+  fill: var(--torii);
+}
+
+.enlaces-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.enlaces-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.enlaces-nav a:hover {
+  color: var(--ink);
+}
+
+.enlaces-nav a[aria-current='page'] {
+  color: var(--torii);
+}
+
+.enlaces-nav a.cta-nav {
+  color: var(--cream-card);
+  background-color: var(--torii);
+  padding: 8px 16px;
+  border-radius: var(--radio);
+}
+
+.enlaces-nav a.cta-nav:hover {
+  background-color: var(--torii-dark);
+  color: var(--cream-card);
+}
+
+.boton-hamburguesa {
+  display: none;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radio);
+  width: 40px;
+  height: 40px;
+  font-size: 1.1rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* ---- Pie del sitio. ---- */
+
+.pie {
+  border-top: 0.5px solid var(--line);
+  max-width: var(--ancho-max);
+  margin: 24px auto 0;
+  padding: 24px 20px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.contacto-pie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  justify-content: flex-end;
+}
+
+.contacto-pie a {
+  font-family: var(--fuente-mono);
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.contacto-pie a:hover {
+  color: var(--ai);
+}
+
+@media (max-width: 768px) {
+  .boton-hamburguesa {
+    display: block;
+  }
+
+  .enlaces-nav {
+    display: none;
+    position: absolute;
+    top: var(--alto-nav);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 16px 20px 20px;
+    background-color: var(--cream-card);
+    border-bottom: 0.5px solid var(--line);
+  }
+
+  .navegacion.menu-abierto .enlaces-nav {
+    display: flex;
+  }
+
+  .enlaces-nav a.cta-nav {
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenedor {
+    padding: 24px 16px 40px;
+  }
+
+  .pie {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

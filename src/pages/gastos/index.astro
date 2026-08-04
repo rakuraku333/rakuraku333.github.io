@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  titulo="rakucash — raku"
+  descripcion="rakucash — billetera personal instalable: deudas, análisis y multi-billetera. Construida con TypeScript, Vite y Capacitor."
+  ogImagen="/capturas/rakucash-logo.png"
+>
+  <section class="portada revelar">
+    <img class="logo-caso" src="/capturas/rakucash-logo.png" alt="Logo de rakucash" width="96" height="96">
+    <h1>rakucash</h1>
+    <p>Billetera personal que uso todos los días: transacciones, deudas y análisis de gastos, instalada como app real en el teléfono — no una pestaña del navegador.</p>
+    <div class="acciones-portada">
+      <a class="boton-principal" href="/gastos/app/">Abrir rakucash →</a>
+    </div>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-que-es">
+    <p class="etiqueta-seccion">Problema</p>
+    <h2 id="titulo-que-es" class="titulo-seccion">Qué resuelve</h2>
+    <p>Las apps de finanzas típicas piden cuenta, sincronizan con un banco o guardan tus datos en un servidor de otro. Acá no: todo vive en <strong>localStorage</strong>, en tu propio dispositivo. Cero backend, cero login, cero tracking — y aun así, completa: no es una calculadora de gastos, es una billetera con historial, deudas reales y análisis.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-funciones">
+    <p class="etiqueta-seccion">Funciones</p>
+    <h2 id="titulo-funciones" class="titulo-seccion">Qué hace</h2>
+    <ul class="lista-enfoque">
+      <li>Transacciones con fecha editable, categorías propias (con selector de emoji) y búsqueda/filtros por texto y rango de fechas.</li>
+      <li>Deudas reales: alta, registro de pagos, y cada pago genera automáticamente el egreso correspondiente en el historial.</li>
+      <li>Análisis: gasto por categoría del mes y comparativa "este mes vs. mes pasado", todo en CSS puro.</li>
+      <li>Multi-billetera: separá efectivo, banco, ahorros — cada una con su propio saldo, calculado en vivo a partir de sus movimientos.</li>
+      <li>Backup manual (exportar/importar un <code>.json</code>) — sin nube, la copia de seguridad la manejás vos.</li>
+      <li>Instalable como PWA o como <code>.apk</code> nativo de Android, con splash screen y funcionamiento 100% offline.</li>
+    </ul>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-capturas">
+    <h2 id="titulo-capturas" class="titulo-seccion">Capturas</h2>
+    <div class="lista-destacados">
+      <button type="button" class="tarjeta-destacada boton-captura" data-full="/capturas/rakucash-dashboard.png" data-alt="Dashboard de rakucash con saldo, egresos por categoría y comparativa mensual">
+        <span class="captura-marco">
+          <img src="/capturas/rakucash-dashboard.png" alt="Dashboard de rakucash con saldo, egresos por categoría y comparativa mensual" loading="lazy">
+        </span>
+        <div class="texto-destacada">
+          <h3>Dashboard</h3>
+          <p>Saldo por billetera, gasto del mes por categoría y comparativa contra el mes anterior.</p>
+        </div>
+      </button>
+    </div>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-hecho">
+    <p class="etiqueta-seccion">Stack</p>
+    <h2 id="titulo-hecho" class="titulo-seccion">Cómo está hecha</h2>
+    <p><strong>TypeScript + Vite</strong>, arquitectura en capas estrictas — <code>constantes → storage → lógica → ui → main</code>, cada archivo con una sola responsabilidad y sin lógica de negocio mezclada con DOM. La lógica pura (cálculos de saldo, filtros, agrupaciones) tiene su propia batería de tests con Vitest.</p>
+    <p>El empaquetado como app nativa es <strong>Capacitor</strong>: el mismo build web queda embebido adentro del <code>.apk</code>, así que una vez instalada no depende de que ningún servidor siga levantado — se abre y funciona en modo avión.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-decisiones">
+    <p class="etiqueta-seccion">Decisiones</p>
+    <h2 id="titulo-decisiones" class="titulo-seccion">Por qué así</h2>
+    <p><strong>localStorage</strong> en vez de un backend: es un dato personal, no algo que necesite compartirse ni sincronizarse entre dispositivos. Sin cuenta, sin servidor que mantener, sin superficie de ataque más allá del propio teléfono. El riesgo real es perder el celular sin haber exportado — por eso el backup manual a <code>.json</code> no es un accesorio, es la mitigación del único punto flojo de esta decisión.</p>
+    <p>Capacitor y no solo PWA: la PWA está, pero el <code>.apk</code> da splash screen, ícono propio y modo avión de verdad, sin depender de que el navegador decida cuándo ofrecer "instalar". Para una app que uso todos los días, esa fricción de menos vale el empaquetado extra.</p>
+    <p>Arquitectura en capas estrictas en una app tan chica puede parecer de más, pero es justo lo que permite que Vitest testee la lógica de saldos y filtros sin tocar el DOM — la mantenibilidad de algo vanilla, sin framework, sale de ahí, no de agregar dependencias.</p>
+    <p>Un pago de deuda genera el egreso solo: dejar que el usuario haga los dos pasos a mano es la forma más fácil de que el historial y las deudas se desincronicen. Automatizarlo es menos código de UI, no más.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-probar">
+    <p class="etiqueta-seccion">Probar</p>
+    <h2 id="titulo-probar" class="titulo-seccion">Probarla</h2>
+    <p>La versión web funciona igual que la app instalada, con los mismos datos guardados en tu navegador.</p>
+    <div class="acciones-portada">
+      <a class="boton-principal" href="/gastos/app/">Abrir rakucash →</a>
+    </div>
+  </section>
+</Base>

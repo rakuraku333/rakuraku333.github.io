@@ -1,0 +1,181 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  titulo="raku"
+  descripcion="raku — programador y diseñador autodidacta: proyectos, servicios y bitácora."
+  hojas={['/ocaso/css/ocaso.css']}
+  guiones={['/ocaso/js/ocaso.js']}
+>
+  <section class="escena-ocaso banner-ocaso" aria-hidden="true">
+    <canvas id="escena"></canvas>
+  </section>
+
+  <section class="portada revelar">
+    <h1 class="texto-gradiente" style="font-size: clamp(2rem, 4.5vw, 3.2rem);">
+      Iñaki — programador, profe de pilates, ojo estético.
+    </h1>
+    <p>Construyo herramientas simples que hacen una cosa bien. También gestiono redes y presencia digital para negocios reales.</p>
+    <div class="acciones-portada">
+      <a class="boton-principal" href="/proyectos/">Ver proyectos</a>
+      <a class="boton-secundario" href="mailto:iniakigp@gmail.com">Hablemos</a>
+    </div>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-filosofia">
+    <p class="etiqueta-seccion">Filosofía</p>
+    <h2 id="titulo-filosofia" class="titulo-seccion">Cómo trabajo</h2>
+    <p>Es un oficio de aprendizaje constante — no hay un punto en el que uno "ya sabe". Lo que más importa no es conocer todas las herramientas, sino poder abrir algo desconocido, entenderlo y construir sobre eso con criterio propio.</p>
+    <p>Prefiero lo simple: una herramienta que hace una cosa bien, mantenible sin sufrir, antes que una solución elegante que nadie puede tocar en seis meses.</p>
+    <p>Esta web es mi bitácora y mi portfolio: documento acá los proyectos que construyo y las decisiones detrás de cada uno.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-actualmente">
+    <p class="etiqueta-seccion">Actualmente</p>
+    <h2 id="titulo-actualmente" class="titulo-seccion">Actualmente</h2>
+    <p>En este momento estoy enfocado en:</p>
+    <ul class="lista-enfoque">
+      <li>desarrollar proyectos personales y de clientes reales;</li>
+      <li>gestión de redes y presencia digital;</li>
+      <li>construir herramientas simples que resuelvan problemas concretos;</li>
+      <li>aprender todos los días.</li>
+    </ul>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-perfil">
+    <p class="etiqueta-seccion">Perfil</p>
+    <h2 id="titulo-perfil" class="titulo-seccion">Quién soy para gestionar tus redes</h2>
+    <p>Además de programar (ver <a href="/proyectos/">proyectos</a>), doy clases de pilates — tengo un estudio real, con alumnos reales, y construí mi propio sistema para manejarlo. Eso significa que entiendo un negocio de servicio desde adentro: horarios, clientes, constancia, lo que se rompe en la práctica del día a día. No es la teoría de un curso de marketing.</p>
+    <p>También leo mucho y entiendo bien cómo funciona internet — no como usuario, como alguien que programa las herramientas que otros usan para publicar, medir y vender. Y diseño: el banner de arriba, la paleta de todo este sitio, cada pieza visual acá es mía (ver <a href="/ocaso/">ocaso</a>). Negocio real más tecnología más ojo estético: esa mezcla es la que ofrezco.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-credencial">
+    <p class="etiqueta-seccion">Credencial</p>
+    <h2 id="titulo-credencial" class="titulo-seccion">Ya lo hice, no es teoría</h2>
+    <p>Hace muchos años, cuando era adolescente, armé una página de Facebook desde cero, de nicho (fandom de Pokémon), con contenido diario a prueba y error. La llevé a <strong>100.000 seguidores</strong> reales y la vendí porque ahí me fui de ese mundo. No fue suerte — fue entender qué hace que la gente interactúe de verdad, no perseguir un like.</p>
+    <p><a href="https://www.facebook.com/ElitePokemon/" target="_blank" rel="noopener">Ver la página →</a></p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-prueba">
+    <p class="etiqueta-seccion">Caso de estudio</p>
+    <h2 id="titulo-prueba" class="titulo-seccion">Prueba: Pilates Base</h2>
+    <p>No solo gestiono redes — si el negocio necesita una herramienta digital (una web, un sistema de turnos, lo que sea), la puedo construir. Pilates Base es el ejemplo real: lo uso todos los días en mi propio estudio, con alumnos reales.</p>
+    <div class="lista-destacados">
+      <button type="button" class="tarjeta-destacada boton-captura" data-full="/capturas/pilates-biblioteca.webp" data-alt="Biblioteca de ejercicios de Pilates Base, con filtros por nivel y grupo muscular">
+        <span class="captura-marco">
+          <img src="/capturas/pilates-biblioteca.webp" alt="Biblioteca de ejercicios de Pilates Base, con filtros por nivel y grupo muscular" loading="lazy">
+        </span>
+        <div class="texto-destacada">
+          <h3>Biblioteca de 328 ejercicios</h3>
+          <p>Con filtros por nivel, categoría, equipamiento y grupo muscular.</p>
+        </div>
+      </button>
+      <button type="button" class="tarjeta-destacada boton-captura" data-full="/capturas/pilates-rutinas.webp" data-alt="Listado de rutinas armadas en Pilates Base">
+        <span class="captura-marco">
+          <img src="/capturas/pilates-rutinas.webp" alt="Listado de rutinas armadas en Pilates Base" loading="lazy">
+        </span>
+        <div class="texto-destacada">
+          <h3>Rutinas y seguimiento</h3>
+          <p>Secuencias armadas por objetivo, con series y repeticiones.</p>
+        </div>
+      </button>
+    </div>
+    <p class="ver-todos"><a href="/pilates/">Ver el caso completo →</a></p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-flyer">
+    <p class="etiqueta-seccion">Portfolio</p>
+    <h2 id="titulo-flyer" class="titulo-seccion">Ejemplos: piezas para redes</h2>
+    <p>Esta misma página tiene su flyer — diseñado, no tercerizado. Así trabajo una pieza para redes: mismo criterio visual, en formato listo para subir. La segunda es una muestra de estilo con marca ficticia, para mostrar rango sin atarme a un solo rubro.</p>
+    <div class="lista-destacados">
+      <button type="button" class="tarjeta-destacada boton-captura" data-full="/capturas/flyer-servicios.png" data-alt="Flyer de servicios de raku">
+        <span class="captura-marco">
+          <img src="/capturas/flyer-servicios.png" alt="Flyer de servicios de raku" loading="lazy">
+        </span>
+        <div class="texto-destacada">
+          <h3>Flyer de servicios</h3>
+          <p>1080×1350, listo para Instagram o WhatsApp.</p>
+        </div>
+      </button>
+      <button type="button" class="tarjeta-destacada boton-captura" data-full="/capturas/muestra-estilo.png" data-alt="Muestra de estilo: flyer de Café Norte, marca ficticia">
+        <span class="captura-marco">
+          <img src="/capturas/muestra-estilo.png" alt="Muestra de estilo: flyer de Café Norte, marca ficticia" loading="lazy">
+        </span>
+        <div class="texto-destacada">
+          <h3>Muestra de estilo — Café Norte</h3>
+          <p>Marca ficticia, no es trabajo de cliente real. Pieza rica en información: promo, features, cita, contacto.</p>
+        </div>
+      </button>
+    </div>
+    <p class="ver-todos"><a href="/cafe-norte/">También armé un mini-sitio de 3 páginas para Café Norte, con animaciones de scroll →</a></p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-servicios">
+    <p class="etiqueta-seccion">Servicios</p>
+    <h2 id="titulo-servicios" class="titulo-seccion">Qué ofrezco</h2>
+    <ul class="lista-enfoque">
+      <li>Gestión de redes sociales: contenido, calendario editorial y comunidad, no solo publicar por publicar.</li>
+      <li>Estrategia y pilares de contenido, con métricas y reportes claros.</li>
+      <li>Diseño de piezas simples para redes (flyers, carruseles, historias).</li>
+      <li>Si el negocio lo necesita, desarrollo de la herramienta digital que le falta.</li>
+    </ul>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-destacados">
+    <p class="etiqueta-seccion">Trabajo seleccionado</p>
+    <h2 id="titulo-destacados" class="titulo-seccion">Proyectos destacados</h2>
+    <div class="lista-destacados">
+      <a class="tarjeta-destacada revelar" href="/gastos/">
+        <span class="captura-marco">
+          <img src="/capturas/rakucash-dashboard.png" alt="Dashboard de rakucash con saldo, ingresos, egresos y gastos por categoría" loading="lazy">
+        </span>
+        <div class="texto-destacada">
+          <h3>rakucash</h3>
+          <p>Billetera personal: transacciones, categorías propias, deudas con pago automático, análisis mensual y multi-billetera. Backup manual, sin servidor.</p>
+          <span class="etiqueta">instalable como PWA y APK Android</span>
+        </div>
+      </a>
+      <a class="tarjeta-destacada revelar" href="/pilates/">
+        <span class="captura-marco">
+          <img src="/capturas/pilates-biblioteca.webp" alt="Biblioteca de ejercicios de Pilates Base con filtros por nivel y grupo muscular" loading="lazy">
+        </span>
+        <div class="texto-destacada">
+          <h3>Pilates Base</h3>
+          <p>Gestión de un estudio de pilates: alumnos, rutinas y una biblioteca de 328 ejercicios. Next.js, SQLite y Docker.</p>
+          <span class="etiqueta">caso de estudio + demo en vivo</span>
+        </div>
+      </a>
+      <a class="tarjeta-destacada revelar" href="/waveforge/">
+        <span class="captura-marco">
+          <img src="/capturas/waveforge-torii.jpg" alt="Torii wireframe girando, renderizado en tiempo real contra un ocaso synthwave" loading="lazy">
+        </span>
+        <div class="texto-destacada">
+          <h3>waveforge</h3>
+          <p>Motor GPU de visuales audio-reactivos en Python: patrones, capas y escenas que se combinan en vivo.</p>
+          <span class="etiqueta">motor propio — código abierto en GitHub</span>
+        </div>
+      </a>
+      <a class="tarjeta-destacada revelar" href="/habitos/">
+        <span class="captura-marco">
+          <img src="/capturas/habitos-dashboard.png" alt="Ranking del mes y hábitos con racha diaria" loading="lazy">
+        </span>
+        <div class="texto-destacada">
+          <h3>hábitos</h3>
+          <p>Rachas diarias con heatmap, insignias, ranking y recordatorio configurable. Lista de tareas y backup manual. PWA + APK Android.</p>
+          <span class="etiqueta">instalable como PWA y APK Android</span>
+        </div>
+      </a>
+    </div>
+    <p class="ver-todos"><a href="/proyectos/">ver todos los proyectos →</a></p>
+  </section>
+
+  <section class="seccion revelar" id="contacto" aria-labelledby="titulo-contacto">
+    <p class="etiqueta-seccion etiqueta-seccion--ai">Contacto</p>
+    <h2 id="titulo-contacto" class="titulo-seccion">Hablemos</h2>
+    <ul class="lista-contacto">
+      <li><a href="mailto:iniakigp@gmail.com">iniakigp@gmail.com</a></li>
+      <li><a href="https://wa.me/5492494360082?text=%C2%A1Hola!%20Vi%20tu%20p%C3%A1gina%20y%20quiero%20consultarte%20por%20gesti%C3%B3n%20de%20redes." target="_blank" rel="noopener">WhatsApp</a></li>
+      <li><a href="https://github.com/rakuraku333" target="_blank" rel="noopener">github.com/rakuraku333</a></li>
+    </ul>
+  </section>
+</Base>

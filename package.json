@@ -1,0 +1,14 @@
+{
+  "name": "rakudotcom",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "astro build && node verificar.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.1.6"
+  }
+}

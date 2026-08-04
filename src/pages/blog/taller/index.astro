@@ -1,0 +1,70 @@
+---
+// El editor privado de la bitácora — CRUD de borradores y exportador. La lectura
+// pública vive en /blog/. Esta ruta no está en el nav ni en el footer.
+import Base from '../../../layouts/Base.astro';
+---
+<Base
+  titulo="taller — raku"
+  descripcion="El taller de la bitácora: borradores, archivo y publicación."
+  hojas={['/blog/css/componentes.css']}
+  guiones={[
+    '/blog/datos/entradas-publicadas.js',
+    '/blog/js/constantes.js',
+    '/blog/js/storage.js',
+    '/blog/js/logica.js',
+    '/blog/js/ui.js',
+    '/blog/js/main.js',
+  ]}
+>
+  <header class="encabezado revelar">
+    <h1>Taller</h1>
+  </header>
+  <p class="subtitulo revelar">Editor privado de la bitácora: borradores, publicación y exportación.</p>
+
+  <p id="mensaje" class="mensaje" role="alert" hidden></p>
+
+  <div id="vista-lista">
+    <section class="tarjeta revelar" aria-labelledby="titulo-nueva-entrada">
+      <h2 id="titulo-nueva-entrada">Nueva entrada</h2>
+      <form id="formulario-entrada" novalidate>
+        <div class="campo">
+          <label for="campo-titulo">Título</label>
+          <input type="text" id="campo-titulo" placeholder="Sobre qué escribís hoy">
+        </div>
+        <div class="campo">
+          <label for="campo-contenido">Contenido</label>
+          <textarea id="campo-contenido" placeholder="Escribí acá…"></textarea>
+          <p class="ayuda">Podés usar **negrita** y *cursiva*. Separá párrafos con una línea en blanco.</p>
+        </div>
+        <div class="campo">
+          <label for="campo-etiquetas">Etiquetas <span class="ayuda-inline">(separadas por coma, opcional)</span></label>
+          <input type="text" id="campo-etiquetas" placeholder="aprendizaje, código">
+        </div>
+        <div class="campo">
+          <label for="campo-imagenes">Imágenes <span class="ayuda-inline">(URLs separadas por coma, opcional)</span></label>
+          <input type="text" id="campo-imagenes" placeholder="/capturas/mi-imagen.png, /capturas/otra.png">
+        </div>
+        <button type="submit" class="boton-principal">Guardar borrador</button>
+      </form>
+    </section>
+
+    <section class="tarjeta revelar" aria-labelledby="titulo-entradas">
+      <h2 id="titulo-entradas">Entradas</h2>
+      <button type="button" id="boton-exportar" class="boton-secundario">Exportar para publicar</button>
+      <p id="aviso-sin-entradas" class="aviso-vacio" hidden></p>
+      <ul id="lista-entradas" class="lista-entradas"></ul>
+    </section>
+  </div>
+
+  <div id="vista-detalle" hidden>
+    <section class="tarjeta">
+      <a class="enlace-volver" href="#">&larr; Volver al listado</a>
+      <article>
+        <h2 id="detalle-titulo" class="detalle-titulo"></h2>
+        <p id="detalle-fecha" class="detalle-fecha"></p>
+        <div id="detalle-contenido" class="detalle-contenido"></div>
+      </article>
+      <button type="button" id="boton-eliminar-entrada" class="boton-eliminar">Eliminar entrada</button>
+    </section>
+  </div>
+</Base>

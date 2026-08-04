@@ -1,0 +1,138 @@
+/* Componentes propios de la galería: campos, grilla de miniaturas y diálogo.
+   Nav, pie y .tarjeta/.boton-principal base ya vienen del sistema compartido
+   (base.css / efectos.css) — acá solo lo específico de esta app. */
+
+.tarjeta h2 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+/* width: 100% o el ancho intrínseco del input (~380px) desborda la tarjeta en móvil. */
+input,
+select {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: var(--radio);
+  padding: 8px 10px;
+}
+
+input:focus,
+select:focus {
+  outline: 1px solid var(--torii);
+  outline-offset: 1px;
+}
+
+.mensaje-error {
+  color: var(--torii-dark);
+  border-color: var(--torii);
+}
+
+.aviso-vacio {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+/* Grilla de miniaturas: columnas automáticas según el ancho disponible. */
+.grilla-imagenes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+/* Cada miniatura es un botón: se abre con click o con teclado. Misma lógica de
+   apilado que .tarjeta (sombra en reposo, se levanta al hover) pero en su
+   propia clase porque no comparte el padding ni el fondo de la tarjeta. */
+.miniatura {
+  display: block;
+  width: 100%;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  color: var(--ink);
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: var(--radio);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--sombra-1);
+  transition: transform var(--transicion-base), border-color var(--transicion-base),
+    box-shadow var(--transicion-base);
+}
+
+.miniatura:hover {
+  transform: translateY(-2px);
+  border-color: var(--torii);
+  box-shadow: var(--sombra-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .miniatura {
+    transition: border-color var(--transicion-rapida), box-shadow var(--transicion-rapida);
+  }
+
+  .miniatura:hover {
+    transform: none;
+  }
+}
+
+.miniatura img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.pie-miniatura {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+}
+
+.titulo-miniatura {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.etiqueta-imagen {
+  flex-shrink: 0;
+  font-family: var(--fuente-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  border: 0.5px solid var(--line);
+  border-radius: var(--radio);
+  padding: 1px 8px;
+}
+
+.pie-dialogo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.detalle-imagen {
+  font-family: var(--fuente-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}

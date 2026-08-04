@@ -5,3 +5,8 @@ Thumbs.db
 # Documentos internos de planificacion (viven solo en esta maquina)
 ESTADO.md
 proyecto-rakudotcom.md
+
+# Astro / Node
+node_modules/
+dist/
+.astro/

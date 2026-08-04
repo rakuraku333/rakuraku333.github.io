@@ -1,0 +1,59 @@
+---
+// Barra de navegación del hub, compartida por todas las páginas del sitio.
+// `activa` es el href de la sección actual (ej. "/proyectos/"); marca el link
+// correspondiente con aria-current, y la marca "raku" cuando activa === "/".
+interface Props {
+  activa?: string;
+}
+const { activa } = Astro.props as Props;
+
+const esActiva = (href: string) => (activa === href ? 'page' : undefined);
+---
+
+<nav class="navegacion" id="nav-hub">
+  <a class="marca-nav" href="/" aria-current={esActiva('/')}>
+    <svg class="isotipo-torii" viewBox="0 0 48 48" width="22" height="22" aria-hidden="true">
+      <rect x="2" y="6" width="44" height="5" rx="1" />
+      <rect x="22" y="11" width="4" height="6" />
+      <rect x="7" y="17" width="34" height="4" rx="1" />
+      <rect x="11" y="11" width="5" height="31" rx="1" />
+      <rect x="32" y="11" width="5" height="31" rx="1" />
+    </svg>
+    <span>raku</span>
+  </a>
+
+  <button
+    class="boton-hamburguesa"
+    type="button"
+    aria-expanded="false"
+    aria-controls="enlaces-nav"
+    aria-label="Abrir menú"
+  >
+    <span aria-hidden="true">☰</span>
+  </button>
+
+  <div class="enlaces-nav" id="enlaces-nav">
+    <a href="/proyectos/" aria-current={esActiva('/proyectos/')}>proyectos</a>
+    <a href="/blog/" aria-current={esActiva('/blog/')}>bitácora</a>
+    <a href="/mission/" aria-current={esActiva('/mission/')}>mission</a>
+    <a class="cta-nav" href="mailto:iniakigp@gmail.com">hablemos</a>
+  </div>
+</nav>
+
+<script>
+  // Dos comportamientos mínimos, sin frameworks:
+  // 1. Borde/fondo del nav solo aparecen después de scrollear un poco (clase .desplazada).
+  // 2. El botón hamburguesa (visible solo <=768px vía CSS) abre/cierra el menú
+  //    tocando aria-expanded — el estado abierto/cerrado lo pinta base.css.
+  const nav = document.getElementById('nav-hub');
+  const toggle = () => nav?.classList.toggle('desplazada', window.scrollY > 8);
+  toggle();
+  window.addEventListener('scroll', toggle, { passive: true });
+
+  const boton = nav?.querySelector('.boton-hamburguesa');
+  boton?.addEventListener('click', () => {
+    const abierto = boton.getAttribute('aria-expanded') === 'true';
+    boton.setAttribute('aria-expanded', String(!abierto));
+    nav?.classList.toggle('menu-abierto', !abierto);
+  });
+</script>

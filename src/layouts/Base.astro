@@ -1,0 +1,94 @@
+---
+// Shell compartido por todas las páginas del sitio. El contenido de cada
+// página vive en <slot />; nav, footer y head repetitivo salen de acá.
+// El CSS/JS del sitio sigue siendo vanilla en public/ — este layout solo
+// linkea con rutas absolutas, no importa nada desde src/.
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Atmosfera from '../components/Atmosfera.astro';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  titulo: string;
+  descripcion: string;
+  ogImagen?: string;
+  hojas?: string[];
+  guiones?: string[];
+  navActiva?: string;
+  lectura?: boolean;
+}
+
+const {
+  titulo,
+  descripcion,
+  ogImagen = '/capturas/bitacora.png',
+  hojas = [],
+  guiones = [],
+  navActiva,
+  lectura = false,
+} = Astro.props as Props;
+
+const ogImagenAbsoluta = new URL(ogImagen, Astro.site).toString();
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={descripcion} />
+  <title>{titulo}</title>
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="theme-color" content="#F7F1E4" />
+
+  <meta property="og:title" content={titulo} />
+  <meta property="og:description" content={descripcion} />
+  <link rel="alternate" type="application/rss+xml" title="bitácora — raku" href="/rss.xml" />
+  <meta property="og:image" content={ogImagenAbsoluta} />
+
+  <link rel="stylesheet" href="/css/variables.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/efectos.css" />
+  {hojas.map((href) => <link rel="stylesheet" href={href} />)}
+  {guiones.map((src) => <script src={src} defer></script>)}
+
+  <slot name="head" />
+
+  <ClientRouter />
+  <script is:inline>
+    // Rutas cuyo JS no soporta SPA-nav — o son apps aparte (rakucash, hábitos,
+    // Café Norte están fuera de Astro) o tienen refs cacheadas al DOM viejo
+    // (editor del taller) o loops de canvas contra un elemento reemplazado
+    // (home, ocaso, waveforge). Interceptamos y hacemos recarga completa.
+    const DESTINOS_EXACTOS_SIN_SPA = new Set(['/', '/galeria/', '/ocaso/', '/waveforge/', '/blog/taller/']);
+    const PREFIJOS_SIN_SPA = ['/gastos/app/', '/habitos/app/', '/cafe-norte/'];
+    document.addEventListener('astro:before-preparation', (evento) => {
+      const destino = new URL(evento.to).pathname;
+      if (DESTINOS_EXACTOS_SIN_SPA.has(destino) || PREFIJOS_SIN_SPA.some((p) => destino.startsWith(p))) {
+        evento.preventDefault();
+        window.location.assign(evento.to);
+      }
+    });
+  </script>
+</head>
+<body>
+  <Atmosfera />
+  <Nav activa={navActiva} />
+  <main class={lectura ? 'contenedor contenedor--lectura' : 'contenedor'}>
+    <slot />
+  </main>
+  <Footer />
+  <dialog id="dialogo-captura" class="dialogo-imagen">
+    <div class="contenido-dialogo">
+      <header class="encabezado-dialogo">
+        <h2 id="dialogo-captura-titulo"></h2>
+        <button type="button" id="boton-cerrar-captura" class="boton-cerrar" aria-label="Cerrar">×</button>
+      </header>
+      <img id="dialogo-captura-imagen" class="imagen-dialogo" src="" alt="">
+    </div>
+  </dialog>
+  <script src="/js/revelar.js" defer></script>
+  <script src="/js/lightbox.js" defer></script>
+</body>
+</html>

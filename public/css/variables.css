@@ -1,0 +1,70 @@
+/* Sistema de diseño de rakudotcom — fuente única de verdad.
+   Vive solo acá: todas las páginas linkean /css/variables.css con ruta absoluta.
+   (Antes estaba copiado idéntico en 11 carpetas.)
+
+   Los 7 tokens originales de la paleta cream + torii no cambian de nombre ni de
+   valor: cualquier CSS viejo que los use sigue funcionando. Lo nuevo se suma. */
+
+:root {
+  /* ---- Superficies. Cream cálido, nunca blanco puro.
+         La profundidad sale de apilar superficies + sombra, no de glow. ---- */
+  --cream-bg: #F7F1E4;      /* fondo general */
+  --cream-card: #FFFCF6;    /* tarjetas sobre el fondo */
+  --cream-raise: #FFFFFF;   /* tarjeta sobre tarjeta (modales, popovers) */
+  --cream-sunk: #EFE7D6;    /* hundido: bloques de código, insets, skeletons */
+
+  /* ---- Acento primario: rojo torii. ---- */
+  --torii: #BE3A34;
+  --torii-dark: #8C2A25;    /* sobre cream, para texto e iconos */
+  --torii-soft: #BE3A341A;  /* washes, fondos de estado, orbes de atmósfera */
+
+  /* ---- Acento secundario: índigo ai (añil).
+         Complementa al torii sin pelearle: el rojo manda en acciones, el índigo
+         en información, links de cuerpo y foco. Da a los gradientes un segundo
+         extremo, que con un solo acento no existía. ---- */
+  --ai: #2E4A62;
+  --ai-dark: #1F3550;
+  --ai-soft: #2E4A621A;
+
+  /* ---- Tinta. Marrón cálido en vez de negro.
+         Los tres valores pasan AA (4.5:1) contra --cream-bg. El --ink-soft
+         original (#7A7267) daba 4.2:1 y el gris pensado para metadatos daba
+         2.4:1: ilegible en mono a 12px. Se oscurecieron sin perder jerarquía. ---- */
+  --ink: #2B2420;           /* texto principal — 12.6:1 */
+  --ink-soft: #736B5F;      /* secundario, descripciones — 4.7:1 */
+  --ink-faint: #6E6659;     /* metadatos, etiquetas mono, placeholders — 5.0:1 */
+
+  /* ---- Líneas. ---- */
+  --line: #E4DBC8;          /* borde fino por defecto */
+  --line-strong: #D6C9B0;   /* separadores que tienen que leerse */
+
+  /* ---- Gradiente de marca: torii -> ai. Solo para texto grande de hero
+         (background-clip: text) y acentos puntuales. Nunca como fondo de card. ---- */
+  --gradiente-marca: linear-gradient(135deg, #BE3A34 0%, #8C2A25 45%, #2E4A62 100%);
+
+  /* ---- Tipografía. Zen Old Mincho sigue siendo la marca: no se reemplaza.
+         La mono es nueva, para etiquetas de sección y metadatos; stack del
+         sistema para no pagar otra fuente por red. ---- */
+  --fuente-display: 'Zen Old Mincho', Georgia, 'Times New Roman', serif;
+  --fuente-cuerpo: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fuente-mono: ui-monospace, SFMono-Regular, 'JetBrains Mono', Menlo, monospace;
+
+  /* ---- Sombras cálidas (tintadas con la tinta, no negro puro).
+         Es lo que sobre cream reemplaza al glow neón de un tema oscuro. ---- */
+  --sombra-1: 0 1px 2px #2B242008;
+  --sombra-2: 0 8px 24px #2B24200F;
+  --sombra-flotante: 0 12px 32px #BE3A3414;
+
+  /* ---- Movimiento. ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transicion-rapida: 0.2s var(--ease-out);
+  --transicion-base: 0.3s var(--ease-out);
+  --transicion-lenta: 0.6s var(--ease-out);
+
+  /* ---- Medidas. El hub se ensancha; la lectura larga sigue angosta. ---- */
+  --ancho-max: 1120px;
+  --ancho-lectura: 720px;
+  --alto-nav: 64px;
+  --radio: 12px;
+  --radio-grande: 18px;
+}

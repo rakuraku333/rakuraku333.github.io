@@ -1,0 +1,131 @@
+---
+// The Mission — ejercicios de Java. Muestra código + salida capturada al lado.
+// Además, un botón "Ejecutar en vivo" por ejercicio: al primer click se carga
+// CheerpJ (JVM en WASM, ~40MB una vez), compila la fuente con javac del JDK 17
+// y ejecuta el main capturando stdout/stderr. Para los interactivos se muestra
+// un stdin editable pre-llenado con el .in del ejercicio.
+//
+// Todo lo del runtime es lazy: hasta que alguien apriete play, la página es
+// HTML puro con Shiki para el syntax highlighting. Si CheerpJ no carga
+// (offline, navegador viejo) el botón se saca solo — el .out queda como respaldo.
+import Base from '../../layouts/Base.astro';
+import { Code } from 'astro:components';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const RAIZ = path.join(process.cwd(), 'content/mission');
+
+function listarJava(dir, rel = '') {
+  const encontrados = [];
+  for (const nombre of fs.readdirSync(path.join(dir, rel)).sort()) {
+    const relPath = rel ? `${rel}/${nombre}` : nombre;
+    const abs = path.join(dir, relPath);
+    if (fs.statSync(abs).isDirectory()) {
+      encontrados.push(...listarJava(dir, relPath));
+    } else if (nombre.endsWith('.java')) {
+      const salidaAbs = abs.replace(/\.java$/, '.out');
+      const stdinAbs = abs.replace(/\.java$/, '.in');
+      const codigo = fs.readFileSync(abs, 'utf-8');
+      encontrados.push({
+        titulo: nombre.replace(/\.java$/, ''),
+        capitulo: rel || 'principal',
+        codigo,
+        salida: fs.existsSync(salidaAbs) ? fs.readFileSync(salidaAbs, 'utf-8') : null,
+        stdin: fs.existsSync(stdinAbs) ? fs.readFileSync(stdinAbs, 'utf-8') : '',
+        // Detecta lectura interactiva de la consola, para saber si mostramos el
+        // textarea de stdin o solo el botón "correr".
+        interactivo: /new\s+Scanner\s*\(\s*System\.in\s*\)/.test(codigo),
+      });
+    }
+  }
+  return encontrados;
+}
+
+const todos = listarJava(RAIZ);
+
+const capitulos = new Map();
+for (const e of todos) {
+  if (!capitulos.has(e.capitulo)) capitulos.set(e.capitulo, []);
+  capitulos.get(e.capitulo).push(e);
+}
+const capitulosOrdenados = [...capitulos.entries()];
+
+const rotularCapitulo = (nombre) => {
+  if (nombre === 'principal') return 'Ejercicios base';
+  if (nombre === 'control') return 'Estructuras de control';
+  if (nombre === 'nivel_final') return 'Bonus track — nivel final';
+  return `Ejercicios de ${nombre}`;
+};
+
+// El runner en el cliente lee este JSON para saber qué compilar/correr por id.
+const fuentes = todos.map((e) => ({
+  id: `${e.capitulo}/${e.titulo}`,
+  nombre: e.titulo,
+  fuente: e.codigo,
+  stdin: e.stdin,
+  interactivo: e.interactivo,
+}));
+---
+<Base
+  titulo="the mission — raku"
+  descripcion="Ejercicios de Java: código, ejecución capturada y botón para correr en vivo dentro del navegador."
+  navActiva="/mission/"
+  guiones={['/js/mission-runner.js']}
+>
+  <section class="portada revelar">
+    <p class="etiqueta-seccion">Aprendizaje</p>
+    <h1>the mission</h1>
+    <p>Ejercicios de Java a medida que voy avanzando. Código a la izquierda, salida capturada a la derecha. El botón <strong>"ejecutar en vivo"</strong> compila y corre el ejercicio dentro de tu navegador — sin backend, sin salir del tab.</p>
+  </section>
+
+  {capitulosOrdenados.map(([capitulo, ejercicios]) => (
+    <section class="seccion revelar" aria-labelledby={`titulo-${capitulo}`}>
+      <p class="etiqueta-seccion">Capítulo</p>
+      <h2 id={`titulo-${capitulo}`} class="titulo-seccion">{rotularCapitulo(capitulo)}</h2>
+      <div class="lista-ejercicios">
+        {ejercicios.map((e) => {
+          const id = `${e.capitulo}/${e.titulo}`;
+          return (
+            <article class="ejercicio" data-ejercicio-id={id}>
+              <header class="ejercicio-cabecera">
+                <h3>{e.titulo}</h3>
+                <span class="ejercicio-lang">Java</span>
+              </header>
+              <div class="ejercicio-doble">
+                <div class="ejercicio-codigo">
+                  <Code code={e.codigo} lang="java" theme="github-light" />
+                </div>
+                <div class="ejercicio-salida-marco">
+                  <p class="ejercicio-salida-titulo">Ejecución capturada</p>
+                  {e.salida
+                    ? <pre class="ejercicio-salida"><code>{e.salida.trimEnd()}</code></pre>
+                    : <p class="ejercicio-salida-vacia">Sin salida capturada todavía.</p>}
+                </div>
+              </div>
+              <div class="ejercicio-acciones">
+                <button type="button" class="boton-ejecutar" data-run-id={id}>
+                  <span class="icono-play" aria-hidden="true">▶</span>
+                  Ejecutar en vivo
+                </button>
+              </div>
+              <div class="runtime-panel" hidden>
+                <div class="runtime-stdin-marco" hidden={!e.interactivo}>
+                  <label class="runtime-stdin-label" for={`stdin-${id}`}>Stdin (una línea por entrada)</label>
+                  <textarea class="runtime-stdin" id={`stdin-${id}`} rows={Math.max(2, (e.stdin.match(/\n/g) || []).length + 1)}>{e.stdin}</textarea>
+                </div>
+                <div class="runtime-controles">
+                  <button type="button" class="boton-correr boton-secundario">Correr ▶</button>
+                  <span class="runtime-estado" aria-live="polite"></span>
+                </div>
+                <p class="runtime-output-titulo">Ejecución en vivo</p>
+                <pre class="runtime-output"><code></code></pre>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  ))}
+
+  <script type="application/json" id="mission-fuentes" set:html={JSON.stringify(fuentes).replaceAll('</', '<\\/')}></script>
+</Base>

@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  titulo="colófon — raku"
+  descripcion="Cómo está hecho este sitio: stack, arquitectura CSS y decisiones."
+>
+  <section class="portada revelar">
+    <h1>colófon</h1>
+    <p>Cómo está hecho este sitio.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-stack">
+    <p class="etiqueta-seccion">Stack</p>
+    <h2 id="titulo-stack" class="titulo-seccion">Astro estático</h2>
+    <p>El hub (esta página, home, proyectos, servicios) es Astro sin framework en el cliente: HTML generado en build, cero JavaScript de UI corriendo por default. El <code>dependencies</code> de <code>package.json</code> tiene una sola línea, <code>astro</code> — sin CSS-in-JS, sin bundler aparte, sin React. La única concesión es <code>&lt;ClientRouter /&gt;</code> de Astro para las transiciones entre páginas: sin routing SPA de verdad, las view transitions nativas cubren esa distancia sin sumar una dependencia.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-css">
+    <p class="etiqueta-seccion">Estilos</p>
+    <h2 id="titulo-css" class="titulo-seccion">CSS en tres capas</h2>
+    <p>Todo el CSS del hub se sirve como archivos sueltos en <code>public/css/</code>, sin preprocesador. Tres capas, en orden de carga:</p>
+    <ul class="lista-enfoque">
+      <li><code>variables.css</code> — los tokens: colores, sombras, radios, tipografías, transiciones. Nada de valores sueltos en el resto del CSS.</li>
+      <li><code>base.css</code> — reset, tipografía, foco, nav y footer, contenedores.</li>
+      <li><code>efectos.css</code> — el vocabulario visual compartido: <code>.tarjeta</code>, <code>.captura-marco</code>, <code>.tarjeta-destacada</code>, el lightbox, <code>.portada</code>, <code>.pastilla</code>.</li>
+    </ul>
+    <p>Cada página de proyecto suma una hoja propia con lo específico de esa app — nunca redefine lo de estas tres.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-apps">
+    <p class="etiqueta-seccion">Apps</p>
+    <h2 id="titulo-apps" class="titulo-seccion">Apps chicas sin build</h2>
+    <p>gastos, hábitos, café norte y la galería son HTML, CSS y JavaScript vanilla, servidos directo desde <code>public/</code>: sin paso de compilación propio. Astro solo genera el shell de alrededor (nav, footer, la página que las presenta) y linkea a la app real con una ruta absoluta. rakucash y Pilates Base son la excepción: TypeScript con Vite el primero, Next.js el segundo — proyectos con su propio build, deployados aparte y enlazados desde acá.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-pruebas">
+    <p class="etiqueta-seccion">Pruebas</p>
+    <h2 id="titulo-pruebas" class="titulo-seccion"><code>verificar.mjs</code></h2>
+    <p><code>npm test</code> compila el sitio y corre <code>verificar.mjs</code>, un script de Node sin dependencias que recorre <code>dist/</code>: confirma que cada página del hub se haya generado, que no haya quedado ningún link relativo tras una migración de rutas y que todo lo referenciado exista en disco. Suma un chequeo de contraste (WCAG AA) sobre los tokens de <code>variables.css</code>. No es un test de que la página se vea bien — es el piso: nada roto, nada ilegible, nada de eso se cuela sin que <code>npm test</code> lo note.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-identidad">
+    <p class="etiqueta-seccion">Identidad</p>
+    <h2 id="titulo-identidad" class="titulo-seccion">Paleta y tipografía</h2>
+    <p>Cream cálido (<code>#F7F1E4</code>) en vez de blanco puro, con el rojo torii como acento primario. El título es Zen Old Mincho, autoalojada en <code>/css/fuentes/</code> con subset latin — alcanza para el español y no depende de ningún CDN de fuentes.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-mas">
+    <h2 id="titulo-mas" class="titulo-seccion">Seguir leyendo</h2>
+    <p>Más sobre mí en <a href="/">la portada</a>, o directo por <a href="mailto:iniakigp@gmail.com">mail</a>.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-codigo">
+    <p class="etiqueta-seccion">Código</p>
+    <h2 id="titulo-codigo" class="titulo-seccion">Todo esto es código abierto</h2>
+    <p>El repo entero está en GitHub — el CSS de este sitio, las apps del hub, el <code>verificar.mjs</code>. Se puede leer, forkear, robar ideas.</p>
+    <div class="acciones-portada">
+      <a class="boton-principal" href="https://github.com/rakuraku333/rakudotcom" target="_blank" rel="noopener">github.com/rakuraku333/rakudotcom →</a>
+    </div>
+  </section>
+</Base>

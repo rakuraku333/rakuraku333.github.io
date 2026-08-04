@@ -1,0 +1,15 @@
+Entrenando MLP 2-3-1 sobre XOR (lr=0.5, epochs=4000)
+
+Loss:
+  ep    0   loss=1.443805
+  ep  100   loss=1.050730
+  ep  500   loss=0.872811
+  ep 1000   loss=0.178659
+  ep 2000   loss=0.013560
+  ep 3999   loss=0.004039
+
+Predicciones finales:
+  (0,0) -> 0.0276   (esperado 0)
+  (0,1) -> 0.9718   (esperado 1)
+  (1,0) -> 0.9679   (esperado 1)
+  (1,1) -> 0.0380   (esperado 0)

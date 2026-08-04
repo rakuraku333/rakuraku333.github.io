@@ -1,0 +1,976 @@
+/* Vocabulario visual compartido: atmósfera de fondo, entrada por scroll, tarjetas,
+   grillas, botones y textos de acento. Todo apilando superficies + sombra cálida
+   sobre cream — nunca glow, porque sobre un fondo claro el glow se ve barro. */
+
+/* ---- Atmósfera de fondo: manchas de color muy tenues + textura de ruido.
+   El markup lo pone Base.astro (ver Atmosfera.astro); acá solo el estilo.
+   Clave: sobre cream esto tiene que ser CASI imperceptible (5-8% de opacidad,
+   nunca el 40% que usaría un tema oscuro con el mismo truco). ---- */
+.atmosfera {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.atmosfera__mancha {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform;
+  animation: deriva 22s ease-in-out infinite alternate;
+}
+
+.atmosfera__mancha--torii {
+  top: -10%;
+  left: -8%;
+  width: 46vw;
+  height: 46vw;
+  background: var(--torii);
+  opacity: 0.06;
+}
+
+.atmosfera__mancha--ai {
+  bottom: -14%;
+  right: -10%;
+  width: 40vw;
+  height: 40vw;
+  background: var(--ai);
+  opacity: 0.05;
+  animation-duration: 26s;
+  animation-delay: -6s;
+}
+
+@keyframes deriva {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(4%, 6%) scale(1.08);
+  }
+}
+
+/* Textura de grano fina: SVG feTurbulence en data-uri, sin pedir un archivo aparte. */
+.atmosfera__ruido {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23r)'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 768px) {
+  .atmosfera__mancha {
+    width: 60vw;
+    height: 60vw;
+    filter: blur(70px);
+  }
+
+  .atmosfera__ruido {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosfera__mancha {
+    animation: none;
+  }
+}
+
+/* ---- Entrada de secciones al hacer scroll. La clase ".visible" la agrega
+   revelar.js vía IntersectionObserver; acá solo el estado inicial y la transición. ---- */
+.revelar {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--transicion-lenta), transform var(--transicion-lenta);
+}
+
+.revelar.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revelar {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---- Portada: el hero de cada página de proyecto. Igual que .encabezado,
+   esta clase se venía usando en 5 páginas sin ninguna regla en el repo: el
+   h1 quedaba pegado al nav y el párrafo con color de cuerpo. ---- */
+.portada {
+  padding: 24px 0 48px;
+}
+
+.portada h1 {
+  margin: 0 0 16px;
+  font-size: clamp(1.9rem, 1.4rem + 2.2vw, 2.8rem);
+  letter-spacing: -0.5px;
+}
+
+.portada > p {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+}
+
+.torii-portada {
+  margin-bottom: 20px;
+}
+
+/* Acciones del hero: el rojo torii solo en el botón principal, como acento único. */
+.acciones-portada {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+/* Fila de pastillas al pie de una tarjeta de catálogo. */
+.pastillas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* Enlace de cierre de sección ("ver todos →"): home y servicios. */
+.ver-todos {
+  margin: 20px 0 0;
+}
+
+.ver-todos a {
+  color: var(--torii-dark);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.ver-todos a:hover {
+  text-decoration: underline;
+}
+
+/* Lista de contacto: sobre-mi y servicios. */
+.lista-contacto {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lista-contacto a {
+  color: var(--torii-dark);
+  text-decoration: none;
+}
+
+.lista-contacto a:hover {
+  text-decoration: underline;
+}
+
+/* Lista de funciones/enfoque: bullets simples, mismo ritmo que los párrafos
+   de .seccion. La usan gastos, hábitos, pilates, servicios y sobre-mi. */
+.seccion ul.lista-enfoque {
+  margin: 0 0 12px;
+  padding-left: 20px;
+  max-width: 60ch;
+}
+
+.seccion ul.lista-enfoque li {
+  margin-bottom: 8px;
+}
+
+/* Logo del caso de estudio, arriba del hero: pilates y servicios. */
+.logo-caso {
+  display: block;
+  width: 96px;
+  height: auto;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-1);
+  margin-bottom: 20px;
+}
+
+/* ---- Etiquetas y títulos de sección. ---- */
+.etiqueta-seccion {
+  display: inline-block;
+  margin: 0 0 10px;
+  font-family: var(--fuente-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--torii-dark);
+}
+
+.etiqueta-seccion--ai {
+  color: var(--ai-dark);
+}
+
+.titulo-seccion {
+  margin: 0;
+  font-family: var(--fuente-display);
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+  letter-spacing: -0.5px;
+  color: var(--ink);
+}
+
+/* ---- Tarjeta: la superficie base de todo el sitio. Apilada sobre el fondo,
+   con sombra apenas perceptible en reposo y borde que se enciende al hover. ---- */
+.tarjeta {
+  background-color: var(--cream-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radio-grande);
+  padding: 20px 24px;
+  box-shadow: var(--sombra-1);
+  transition: transform var(--transicion-base), border-color var(--transicion-base),
+    box-shadow var(--transicion-base);
+}
+
+.tarjeta:hover {
+  transform: translateY(-2px);
+  border-color: var(--torii);
+  box-shadow: var(--sombra-flotante);
+}
+
+.tarjeta--plana {
+  transform: none;
+  transition: border-color var(--transicion-base);
+}
+
+.tarjeta--plana:hover {
+  transform: none;
+  box-shadow: var(--sombra-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta {
+    transition: border-color var(--transicion-rapida), box-shadow var(--transicion-rapida);
+  }
+
+  .tarjeta:hover {
+    transform: none;
+  }
+}
+
+/* ---- Marco de captura: encierra screenshots reales (paleta ajena a la del
+   sitio) en un recorte fijo con hairline, para que no rompan la identidad sin
+   importar su paleta interna. Vive dentro del padding de la tarjeta
+   contenedora: el padding de la tarjeta ES el mat. ---- */
+.captura-marco {
+  display: block;
+  aspect-ratio: 16 / 10;
+  margin-bottom: 16px;
+  overflow: hidden;
+  border-radius: calc(var(--radio) - 4px);
+  border: 0.5px solid var(--line);
+}
+
+.captura-marco img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* ---- Grillas responsivas: se acomodan solas, colapsan a una columna en móvil. ---- */
+.rejilla {
+  display: grid;
+  gap: 20px;
+}
+
+/* Dos columnas fijas: con auto-fit el catálogo de 4 apps caía en 3+1 y la
+   última fila quedaba coja. */
+.rejilla--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.rejilla--3 {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+@media (max-width: 560px) {
+  .rejilla--2,
+  .rejilla--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Botones: el torii manda en la acción principal, único relleno sólido del sitio. ---- */
+.boton-principal,
+.boton-secundario {
+  display: inline-block;
+  font-weight: 600;
+  border-radius: var(--radio);
+  padding: 10px 22px;
+  text-decoration: none;
+  transition: transform var(--transicion-rapida), box-shadow var(--transicion-rapida),
+    background-color var(--transicion-rapida), border-color var(--transicion-rapida),
+    color var(--transicion-rapida);
+}
+
+.boton-principal {
+  color: var(--cream-card);
+  background-color: var(--torii);
+  border: 1px solid var(--torii);
+}
+
+.boton-principal:hover {
+  background-color: var(--torii-dark);
+  border-color: var(--torii-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-flotante);
+}
+
+.boton-secundario {
+  color: var(--ink);
+  background-color: transparent;
+  border: 1px solid var(--line);
+}
+
+.boton-secundario:hover {
+  border-color: var(--torii);
+  color: var(--torii-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-2);
+}
+
+.boton-principal:active,
+.boton-secundario:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boton-principal:hover,
+  .boton-secundario:hover {
+    transform: none;
+  }
+}
+
+/* ---- Texto con gradiente de marca: solo para titulares grandes de hero.
+   El color de fallback va declarado antes por si el navegador no soporta el clip. ---- */
+.texto-gradiente {
+  color: var(--torii-dark);
+  background: var(--gradiente-marca);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---- Pastilla: etiqueta redondeada estilo "chip", mono. ---- */
+.pastilla {
+  display: inline-block;
+  font-family: var(--fuente-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  background-color: var(--cream-sunk);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 3px 12px;
+}
+
+/* ---- Meta: línea de metadatos (fecha, tiempo de lectura, etc). ---- */
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--fuente-mono);
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+}
+
+/* ---- Tarjeta destacada: captura enmarcada a la izquierda + texto a la
+   derecha. Antes vivía duplicada en el CSS de cada app que la usaba
+   (home/pilates/servicios); es un componente del sistema. ---- */
+.lista-destacados {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tarjeta-destacada {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: var(--radio-grande);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--sombra-1);
+  transition: transform var(--transicion-rapida), box-shadow var(--transicion-rapida),
+    border-color var(--transicion-rapida);
+}
+
+.tarjeta-destacada .captura-marco {
+  margin-bottom: 0;
+}
+
+.texto-destacada h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.texto-destacada p {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+/* Etiqueta suelta dentro de una tarjeta destacada (formato PWA, tipo de proyecto, etc). */
+.etiqueta {
+  display: inline-block;
+  font-family: var(--fuente-mono);
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  background-color: var(--cream-sunk);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 3px 10px;
+}
+
+.tarjeta-destacada:hover,
+.tarjeta-destacada:focus-visible {
+  border-color: var(--torii);
+  box-shadow: var(--sombra-2);
+  transform: translateY(-2px);
+}
+
+.tarjeta-destacada:hover h3 {
+  color: var(--torii-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta-destacada {
+    transition: border-color var(--transicion-rapida), box-shadow var(--transicion-rapida);
+  }
+
+  .tarjeta-destacada:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .tarjeta-destacada {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Lightbox de capturas: <dialog> nativo, mismo patrón en pilates,
+   servicios y galería. Galería mantiene además sus propias
+   .pie-dialogo/.detalle-imagen/.boton-eliminar-imagen. ---- */
+.boton-captura {
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.dialogo-imagen {
+  padding: 0;
+  border: 0.5px solid var(--line);
+  border-radius: var(--radio);
+  background-color: var(--cream-raise);
+  color: var(--ink);
+  max-width: min(900px, 92vw);
+  box-shadow: var(--sombra-flotante);
+}
+
+.dialogo-imagen::backdrop {
+  background-color: color-mix(in srgb, var(--ink) 55%, transparent);
+}
+
+.contenido-dialogo {
+  padding: 16px 20px;
+}
+
+.encabezado-dialogo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.encabezado-dialogo h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.boton-cerrar {
+  font: inherit;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--ink-soft);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.boton-cerrar:hover {
+  color: var(--torii-dark);
+}
+
+.imagen-dialogo {
+  display: block;
+  max-width: 100%;
+  max-height: 80vh;
+  margin: 0 auto;
+  border-radius: calc(var(--radio) - 4px);
+}
+
+/* ---- Bitácora: hilo vertical + burbujas colgando. Identidad del sitio desde
+   siempre — la esquina superior izquierda anclada a la línea del hilo. ---- */
+.hilo-bitacora {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 20px;
+  border-left: 2px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.burbuja-entrada {
+  background-color: var(--cream-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radio-grande);
+  border-top-left-radius: 4px;
+  box-shadow: var(--sombra-1);
+  padding: 20px 24px;
+}
+
+.fecha-burbuja {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--fuente-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-faint);
+}
+
+.titulo-burbuja {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.titulo-burbuja a {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color var(--transicion-rapida);
+}
+
+.titulo-burbuja a:hover {
+  color: var(--torii-dark);
+}
+
+.contenido-burbuja {
+  line-height: 1.7;
+}
+
+.contenido-burbuja p {
+  margin: 0 0 12px;
+  max-width: 60ch;
+}
+.contenido-burbuja p:last-child {
+  margin-bottom: 0;
+}
+
+.aviso-vacio {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+/* ---- Adjuntos decorativos de la burbuja: cuadrados del mismo tamaño en fila,
+   opcionales por entrada. Reusan .boton-captura para abrir el lightbox. ---- */
+.imagenes-burbuja {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.imagen-burbuja {
+  width: 96px;
+  height: 96px;
+  padding: 0;
+  border: 0.5px solid var(--line);
+  border-radius: calc(var(--radio) - 4px);
+  background-color: var(--cream-sunk);
+  overflow: hidden;
+  transition: border-color var(--transicion-rapida), transform var(--transicion-rapida);
+}
+
+.imagen-burbuja img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.imagen-burbuja:hover {
+  border-color: var(--torii);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .imagen-burbuja {
+    transition: border-color var(--transicion-rapida);
+  }
+  .imagen-burbuja:hover {
+    transform: none;
+  }
+}
+
+/* ---- The Mission — layout de ejercicios de Java: código y salida lado a lado.
+   El código lo pinta <Code /> de Astro con Shiki (github-light), acá solo el
+   marco y la salida. ---- */
+.lista-ejercicios {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.ejercicio {
+  border: 0.5px solid var(--line);
+  border-radius: var(--radio-grande);
+  background-color: var(--cream-card);
+  box-shadow: var(--sombra-1);
+  overflow: hidden;
+}
+
+.ejercicio-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 0.5px solid var(--line);
+  background-color: var(--cream-sunk);
+}
+
+.ejercicio-cabecera h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-family: var(--fuente-mono);
+  color: var(--ink);
+}
+
+.ejercicio-lang {
+  font-family: var(--fuente-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ejercicio-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.ejercicio-codigo {
+  border-right: 0.5px solid var(--line);
+  overflow: auto;
+}
+
+/* Shiki emite un <pre class="astro-code"> — normalizamos a nuestra tipografía y
+   respiro. */
+.ejercicio-codigo pre.astro-code {
+  margin: 0;
+  padding: 16px 20px;
+  background-color: transparent !important;
+  font-family: var(--fuente-mono);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  overflow-x: auto;
+}
+
+.ejercicio-salida-marco {
+  padding: 16px 20px;
+  background-color: var(--cream-raise);
+}
+
+.ejercicio-salida-titulo {
+  margin: 0 0 8px;
+  font-family: var(--fuente-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ejercicio-salida {
+  margin: 0;
+  font-family: var(--fuente-mono);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink);
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.ejercicio-salida-vacia {
+  margin: 0;
+  font-family: var(--fuente-mono);
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
+@media (max-width: 720px) {
+  .ejercicio-doble {
+    grid-template-columns: 1fr;
+  }
+  .ejercicio-codigo {
+    border-right: none;
+    border-bottom: 0.5px solid var(--line);
+  }
+}
+
+/* ---- Runtime interactivo de los ejercicios: botón "Ejecutar en vivo" +
+   panel con stdin editable + área de salida. El botón aparece debajo del
+   grid código/salida-capturada; al primer click se colapsa y expande el
+   panel de abajo. ---- */
+.ejercicio-acciones {
+  padding: 12px 20px;
+  border-top: 0.5px solid var(--line);
+  background-color: var(--cream-sunk);
+}
+
+.boton-ejecutar {
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--torii-dark);
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: var(--radio);
+  padding: 6px 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color var(--transicion-rapida), color var(--transicion-rapida),
+    background-color var(--transicion-rapida);
+}
+
+.boton-ejecutar:hover {
+  border-color: var(--torii);
+  background-color: var(--cream-raise);
+}
+
+.icono-play {
+  font-size: 0.7rem;
+  color: var(--torii);
+}
+
+.runtime-panel[hidden] {
+  display: none;
+}
+
+.runtime-panel {
+  padding: 16px 20px 20px;
+  border-top: 0.5px solid var(--line);
+  background-color: var(--cream-raise);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.runtime-stdin-marco[hidden] { display: none; }
+
+.runtime-stdin-label {
+  display: block;
+  font-family: var(--fuente-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.runtime-stdin {
+  width: 100%;
+  font-family: var(--fuente-mono);
+  font-size: 0.85rem;
+  color: var(--ink);
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: calc(var(--radio) - 4px);
+  padding: 8px 10px;
+  resize: vertical;
+  min-height: 40px;
+}
+
+.runtime-stdin:focus {
+  outline: 1px solid var(--torii);
+  outline-offset: 1px;
+}
+
+.runtime-controles {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.boton-correr {
+  padding: 5px 16px;
+  font-size: 0.85rem;
+}
+
+.boton-correr:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.runtime-estado {
+  font-family: var(--fuente-mono);
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+}
+
+.runtime-output-titulo {
+  margin: 0;
+  font-family: var(--fuente-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.runtime-output {
+  margin: 0;
+  padding: 12px 14px;
+  min-height: 40px;
+  font-family: var(--fuente-mono);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink);
+  background-color: var(--cream-card);
+  border: 0.5px solid var(--line);
+  border-radius: calc(var(--radio) - 4px);
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.runtime-output--error {
+  border-color: var(--torii);
+  color: var(--torii-dark);
+}
+
+/* ---- Etiquetas de bitácora: chips al pie de cada burbuja + fila de filtros
+   arriba del hilo. La chip reusa la pastilla del sistema; el filtro es su
+   variante clickable con estado. ---- */
+.chips-etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.filtros-bitacora {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 20px;
+}
+
+.boton-filtro {
+  font-family: var(--fuente-mono);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  background-color: transparent;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 3px 12px;
+  cursor: pointer;
+  transition: color var(--transicion-rapida), border-color var(--transicion-rapida),
+    background-color var(--transicion-rapida);
+}
+
+.boton-filtro:hover {
+  border-color: var(--torii);
+  color: var(--torii-dark);
+}
+
+.boton-filtro[aria-pressed="true"] {
+  color: var(--torii-dark);
+  border-color: var(--torii);
+  background-color: var(--torii-soft);
+}
+
+/* ---- Banner ocaso: mismo canvas de /ocaso/, recortado a tira de portada.
+   Reusado desde la home como decoración de perfil. La escena grande vive en
+   /ocaso/css/ocaso.css; esto solo ajusta el aspecto. ---- */
+.banner-ocaso {
+  margin: 32px 0 0;
+}
+
+.banner-ocaso #escena {
+  aspect-ratio: 21/9;
+  max-height: 260px;
+}
+
+/* ---- Header liviano de página-herramienta (blog, galería): sin hero grande,
+   para que un panel de autoría no compita con las páginas de showcase. ---- */
+.encabezado {
+  margin-bottom: 8px;
+}
+
+.encabezado h1 {
+  font-size: 1.8rem;
+}
+
+.subtitulo {
+  margin: 0 0 32px;
+  color: var(--ink-soft);
+}
+
+/* ---- Mensajes de formulario y borrado: usados en blog y galería. ---- */
+.ayuda {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.mensaje {
+  margin: 0 0 24px;
+  padding: 10px 14px;
+  border: 0.5px solid var(--line);
+  border-radius: var(--radio);
+}
+
+.boton-eliminar {
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--torii-dark);
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.boton-eliminar:hover {
+  text-decoration: underline;
+}
+
+
+/* ---- Foco visible en todo lo clickeable: el torii marca dónde está el teclado. ---- */
+a:focus-visible,
+button:focus-visible,
+.tarjeta:focus-visible,
+.boton-principal:focus-visible,
+.boton-secundario:focus-visible {
+  outline: 2px solid var(--torii);
+  outline-offset: 2px;
+}

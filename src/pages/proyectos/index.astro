@@ -1,0 +1,65 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  titulo="proyectos — raku"
+  descripcion="raku — proyectos: apps chicas que hacen una sola cosa bien."
+  navActiva="/proyectos/"
+>
+  <section class="portada revelar">
+    <h1>Herramientas simples, para todos los días.</h1>
+    <p>Apps chicas que hacen una sola cosa bien. Las construyo yo, las uso yo — y quedan acá, abiertas para quien quiera probarlas.</p>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-apps">
+    <p class="etiqueta-seccion">Catálogo</p>
+    <h2 id="titulo-apps" class="titulo-seccion">Apps</h2>
+    <p class="meta">4 apps disponibles</p>
+    <div class="rejilla rejilla--2">
+      <a class="tarjeta revelar" href="/gastos/">
+        <span class="captura-marco">
+          <img src="/capturas/rakucash-dashboard.png" alt="Dashboard de rakucash con saldo, ingresos, egresos y gastos por categoría" loading="lazy">
+        </span>
+        <h3>rakucash</h3>
+        <p>Billetera personal instalable: transacciones con fecha y categorías propias, deudas con pago automático, análisis mensual, multi-billetera y backup. PWA + APK Android.</p>
+        <div class="pastillas">
+          <span class="pastilla">PWA</span>
+          <span class="pastilla">APK Android</span>
+        </div>
+      </a>
+      <a class="tarjeta revelar" href="/waveforge/">
+        <span class="captura-marco">
+          <img src="/capturas/waveforge-torii.jpg" alt="Torii wireframe girando, renderizado en tiempo real contra un ocaso synthwave" loading="lazy">
+        </span>
+        <h3>waveforge</h3>
+        <p>Motor GPU de visuales audio-reactivos en Python; capas, patrones propios y el generador del que salió ocaso.</p>
+        <div class="pastillas">
+          <span class="pastilla">Python</span>
+        </div>
+      </a>
+      <a class="tarjeta revelar" href="/habitos/">
+        <span class="captura-marco">
+          <img src="/capturas/habitos-dashboard.png" alt="Ranking del mes y hábitos con racha diaria" loading="lazy">
+        </span>
+        <h3>hábitos</h3>
+        <p>Rachas diarias con heatmap, insignias, ranking y recordatorio configurable. Lista de tareas y backup manual. PWA + APK Android.</p>
+        <div class="pastillas">
+          <span class="pastilla">PWA</span>
+          <span class="pastilla">APK Android</span>
+        </div>
+      </a>
+      <a class="tarjeta revelar" href="/pilates/">
+        <span class="captura-marco">
+          <img src="/capturas/pilates-biblioteca.webp" alt="Biblioteca de ejercicios de Pilates Base" loading="lazy">
+        </span>
+        <h3>pilates</h3>
+        <p>Gestión de un estudio de pilates: alumnos, rutinas y una biblioteca de 328 ejercicios. Next.js, SQLite y Docker.</p>
+        <div class="pastillas">
+          <span class="pastilla">Next.js</span>
+          <span class="pastilla">SQLite</span>
+          <span class="pastilla">Docker</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</Base>

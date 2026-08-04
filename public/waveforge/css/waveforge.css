@@ -1,0 +1,81 @@
+/* Página de waveforge: grilla de ejemplos con miniaturas y el bloque de código
+   del snippet de patrón. Extiende layout.css/componentes.css igual que
+   ocaso.css extiende los suyos (el hero usa ocaso.css/ocaso.js directamente:
+   ver ../ocaso/css/ocaso.css y ../ocaso/js/ocaso.js). */
+
+.pie-imagen {
+  margin: 8px 0 0;
+  font-family: var(--fuente-mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+/* Nota de honestidad sobre las recreaciones Canvas 2D: mismo estilo que
+   .ayuda de galería (texto chico y tenue), con margen propio de párrafo suelto. */
+.ayuda {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+/* Miniaturas de ejemplo: misma idea que .grilla-imagenes de galería, adaptada
+   a <figure> (imagen + epígrafe) en vez de <li>. */
+.grilla-ejemplos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 0;
+}
+
+.grilla-ejemplos figure {
+  margin: 0;
+}
+
+.grilla-ejemplos canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radio);
+  border: 0.5px solid var(--line);
+  box-shadow: var(--sombra-1);
+  transition: box-shadow 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+}
+
+.grilla-ejemplos figure:hover canvas {
+  box-shadow: var(--sombra-2);
+  transform: translateY(-2px);
+}
+
+.grilla-ejemplos figcaption {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 520px) {
+  .grilla-ejemplos {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Snippet de código: sin resaltado de sintaxis, solo monoespaciado legible
+   sobre el fondo de tarjeta habitual del sitio. */
+pre.bloque-codigo {
+  margin: 0;
+  padding: 16px 20px;
+  background-color: var(--cream-sunk);
+  border: 0.5px solid var(--line);
+  border-radius: var(--radio-grande);
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+pre.bloque-codigo code {
+  font-family: var(--fuente-mono);
+  color: var(--ink);
+}

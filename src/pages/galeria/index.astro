@@ -1,0 +1,64 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  titulo="galería — raku"
+  descripcion="Diseños propios: bocetos, logos, interfaces."
+  hojas={['/galeria/css/componentes.css']}
+  guiones={['/galeria/js/constantes.js', '/galeria/js/storage.js', '/galeria/js/logica.js', '/galeria/js/ui.js', '/galeria/js/main.js']}
+>
+  <header class="encabezado">
+    <h1>galería</h1>
+  </header>
+  <p class="subtitulo">Diseños propios: bocetos, logos, interfaces.</p>
+
+  <p id="mensaje" class="mensaje" role="alert" hidden></p>
+
+  <section class="tarjeta revelar" aria-labelledby="titulo-nueva-imagen">
+    <h2 id="titulo-nueva-imagen">Nueva imagen</h2>
+    <form id="formulario-imagen" novalidate>
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="campo-archivo">Archivo</label>
+          <input type="file" id="campo-archivo" accept="image/*">
+        </div>
+        <div class="campo">
+          <label for="campo-url">o URL de una imagen</label>
+          <input type="url" id="campo-url" placeholder="https://…">
+        </div>
+      </div>
+      <p class="ayuda">Elegí un archivo de hasta 1 MB, o pegá la URL de una imagen ya subida a internet.</p>
+      <div class="fila-campos">
+        <div class="campo">
+          <label for="campo-titulo">Título</label>
+          <input type="text" id="campo-titulo" placeholder="Cómo se llama este diseño">
+        </div>
+        <div class="campo">
+          <label for="campo-etiqueta">Etiqueta</label>
+          <select id="campo-etiqueta"></select>
+        </div>
+        <button type="submit" class="boton-principal">Agregar</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="tarjeta revelar" aria-labelledby="titulo-imagenes">
+    <h2 id="titulo-imagenes">Imágenes</h2>
+    <p id="aviso-sin-imagenes" class="aviso-vacio" hidden></p>
+    <ul id="grilla-imagenes" class="grilla-imagenes"></ul>
+  </section>
+
+  <dialog id="dialogo-imagen" class="dialogo-imagen">
+    <div class="contenido-dialogo">
+      <header class="encabezado-dialogo">
+        <h2 id="dialogo-titulo"></h2>
+        <button type="button" id="boton-cerrar-dialogo" class="boton-cerrar" aria-label="Cerrar">×</button>
+      </header>
+      <img id="dialogo-imagen-grande" class="imagen-dialogo" src="" alt="">
+      <footer class="pie-dialogo">
+        <span id="dialogo-detalle" class="detalle-imagen"></span>
+        <button type="button" id="boton-eliminar-imagen" class="boton-eliminar">Eliminar</button>
+      </footer>
+    </div>
+  </dialog>
+</Base>

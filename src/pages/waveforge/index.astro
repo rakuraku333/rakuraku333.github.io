@@ -1,0 +1,75 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// El snippet va como expresión, no como markup: Astro trataría las llaves de
+// Python (TUNABLES, los dicts) como expresiones JSX y no compilaría.
+const ejemploPatron = `class MiPatron(Pattern):
+    name = "mi_patron"
+    TUNABLES = ({"name": "brillo", "min": 0.5, "max": 2.0, "default": 1.0},)
+
+    def update(self, dt, audio):
+        self.brillo = 1.0 + audio.beat_env * 0.5   # late con el beat
+
+    def render(self, time):
+        self.prog["u_brillo"].value = self.brillo
+        self.quad.render(moderngl.TRIANGLE_STRIP)`;
+---
+<Base
+  titulo="waveforge — raku"
+  descripcion="Motor GPU de visuales audio-reactivos en Python — el generador de escenas del que salió ocaso."
+  hojas={['/waveforge/css/waveforge.css', '/ocaso/css/ocaso.css']}
+  guiones={['/ocaso/js/ocaso.js', '/waveforge/js/ejemplos.js']}
+>
+  <section class="portada revelar">
+    <h1>waveforge</h1>
+    <p>Motor GPU de visuales audio-reactivos en Python — el generador de escenas del que salió <a href="/ocaso/">ocaso</a>.</p>
+  </section>
+
+  <p>
+    Un patrón es un shader chico: un fondo, una silueta de montañas, una lluvia de estrellas.
+    Se combinan en vivo como capas — blend, orden, perillas propias — y reaccionan al audio en
+    tiempo real. Cualquiera puede sumar su propio algoritmo en Python: se suelta un archivo y
+    aparece, sin reiniciar nada.
+  </p>
+
+  <figure class="revelar">
+    <div class="escena-ocaso">
+      <canvas id="escena" aria-label="Torii wireframe girando en vivo contra un ocaso synthwave"></canvas>
+    </div>
+    <figcaption class="pie-imagen">En vivo: el mismo torii de ocaso, en Canvas 2D con beat sintético.</figcaption>
+  </figure>
+
+  <p class="ayuda">Todo lo animado en esta página (acá arriba y en "Ejemplos") es una recreación
+  explicativa en Canvas 2D — no hay un motor Python corriendo en el navegador, eso no es posible.
+  El potencial real (patrones GPU, audio en vivo, capas y tunables) está en el proyecto.</p>
+
+  <section class="seccion revelar" aria-labelledby="titulo-ejemplos">
+    <p class="etiqueta-seccion">Demo</p>
+    <h2 id="titulo-ejemplos" class="titulo-seccion">Ejemplos</h2>
+    <div class="grilla-ejemplos">
+      <figure>
+        <canvas id="escena-pilares" aria-label="Pilares wireframe en perspectiva acercándose a cámara, en vivo"></canvas>
+        <figcaption>Pilares wireframe acercándose a cámara.</figcaption>
+      </figure>
+      <figure>
+        <canvas id="escena-estrellas" aria-label="Cielo con estrellas titilantes y una estrella fugaz, en vivo"></canvas>
+        <figcaption>Lluvia de estrellas, fugaces al ritmo del beat.</figcaption>
+      </figure>
+      <figure>
+        <canvas id="escena-bars" aria-label="Barras de espectro de audio con tope redondeado, glow y cap de pico, en vivo"></canvas>
+        <figcaption>El espectro clásico, con glow y peak-hold.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="seccion revelar" aria-labelledby="titulo-patron">
+    <p class="etiqueta-seccion">Extender</p>
+    <h2 id="titulo-patron" class="titulo-seccion">Tu propio patrón</h2>
+    <p>El contrato son dos métodos. Esto ya es un patrón andando (fragmento; la plantilla completa vive en el repo):</p>
+    <pre class="bloque-codigo"><code>{ejemploPatron}</code></pre>
+    <p>Se suelta en <code>patterns_dropped/</code> (arrastrando el archivo) y aparece solo, con
+    recarga en caliente cada vez que se guarda.</p>
+  </section>
+
+  <p><a href="https://github.com/rakuraku333/waveforge" target="_blank" rel="noopener">Código en GitHub →</a></p>
+</Base>

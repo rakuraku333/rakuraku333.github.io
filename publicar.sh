@@ -8,13 +8,14 @@
 # Qué hace (e imprime cada paso, para ir aprendiendo el flujo de git):
 #   1. Si hay un export recién descargado del blog (entradas-publicadas*.js en
 #      ~/Descargas o ~/Downloads, más nuevo que el del repo), lo mueve adentro.
-#   2. Si no hay export, publica los cambios hechos a mano en blog/datos/.
-#   3. git add + commit + push. GitHub Pages actualiza el sitio solo (~1 min).
+#   2. Si no hay export, publica los cambios hechos a mano en public/blog/datos/.
+#   3. git add + commit + push. El Action de GitHub Pages compila con Astro y
+#      publica solo (~1-2 min): ya no es Pages sirviendo la rama directo.
 
 set -e
 cd "$(dirname "$0")"
 
-ARCHIVO_REPO="blog/datos/entradas-publicadas.js"
+ARCHIVO_REPO="public/blog/datos/entradas-publicadas.js"
 MENSAJE="${1:-bitacora: nueva entrada}"
 
 # 1. Buscar un export descargado más nuevo que lo que ya tiene el repo.
@@ -53,5 +54,5 @@ git commit -m "$MENSAJE"
 echo "-> git push"
 git push
 echo
-echo "Publicado. En ~1 minuto se ve en https://rakuraku333.github.io"
+echo "Publicado. El Action de GitHub Pages compila y despliega (~1-2 min): https://rakuraku333.github.io"
 echo "(si no aparece, recargá con Ctrl+Shift+R: el CDN cachea unos minutos)"
