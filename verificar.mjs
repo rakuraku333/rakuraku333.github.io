@@ -23,7 +23,7 @@ if (!existsSync(DIST)) {
 // ---- 1. Las páginas del hub se generaron ----
 
 const RUTAS = [
-  '', 'proyectos', 'blog', 'blog/taller', 'mission', 'colofon', 'galeria',
+  '', 'proyectos', 'blog', 'blog/taller', 'mission', 'galeria',
   'habitos', 'gastos', 'ocaso', 'pilates', 'waveforge',
 ];
 
