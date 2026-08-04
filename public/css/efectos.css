@@ -78,10 +78,17 @@
 }
 
 /* ---- Entrada de secciones al hacer scroll. La clase ".visible" la agrega
-   revelar.js vía IntersectionObserver; acá solo el estado inicial y la transición. ---- */
-.revelar {
+   revelar.js vía IntersectionObserver.
+   Failsafe: si JS no corre (adblock, extensión, error), .revelar queda visible
+   por default. Solo cuando el <html> gana .js (inline script en <head>) se
+   aplica el estado inicial oculto. Así el sitio nunca queda invisible por un
+   script que falló. ---- */
+html.js .revelar:not(.visible) {
   opacity: 0;
   transform: translateY(24px);
+}
+
+.revelar {
   transition: opacity var(--transicion-lenta), transform var(--transicion-lenta);
 }
 
@@ -91,9 +98,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .revelar {
+  html.js .revelar:not(.visible) {
     opacity: 1;
     transform: none;
+  }
+  .revelar {
     transition: none;
   }
 }
