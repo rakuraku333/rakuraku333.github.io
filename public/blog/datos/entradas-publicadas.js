@@ -7,6 +7,16 @@
 
 const ENTRADAS_PUBLICADAS = [
   {
+    "id": "2026-08-04-adaptacion-imitacion-inspiracion",
+    "titulo": "Adaptación, imitación, inspiración.",
+    "contenido": "Podemos aprender de la naturaleza y de otros, lo existente lo podemos mermar con nuestra esencia para crear algo nuevo con nuestra impronta, así como en ciertos ejercicios imitamos la elongación de un gato, podemos imitar las distintas costumbres para ser mejores.",
+    "fechaCreacion": "2026-08-04T18:52:41.406",
+    "etiquetas": [
+      "presencia",
+      "aprendizaje"
+    ]
+  },
+  {
     "id": "2026-07-27-gestion-de-proyectos",
     "titulo": "Gestión de Proyectos",
     "contenido": "Esta semana en Scout tuve una experiencia de formación en proyectos educativos.\n\nQué lindo es poder trabajar con un equipo que está en la misma sintonía. Todo se ve posible cuando dos o más personas están dispuestas y enfocadas en un mismo objetivo. ¿Así será cuando trabaje con un equipo de desarrollo?\n\nLa importancia de descomponer un problema grande en muchos más chicos, y generar \"comisiones\" para resolverlos, es tan real...",
