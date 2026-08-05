@@ -221,6 +221,9 @@ function wireBotones() {
           const { texto, esError } = renderizarResultado(res);
           outputCode.textContent = texto;
           outputPre.classList.add(esError ? 'runtime-output--error' : 'runtime-output--ok');
+          if (!esError && typeof crearConfetti === 'function') {
+            crearConfetti(window.innerWidth / 2, window.innerHeight / 2);
+          }
           setEstado(esError ? 'Terminó con error' : 'Listo');
         } catch (e) {
           outputCode.textContent = 'Error del runtime: ' + extraerMensajeError(e);

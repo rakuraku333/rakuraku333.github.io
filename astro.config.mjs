@@ -6,4 +6,5 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   output: 'static',
   site: 'https://rakuraku333.github.io',
+  server: { port: 33303 },
 });

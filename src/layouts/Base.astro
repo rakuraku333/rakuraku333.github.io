@@ -80,6 +80,20 @@ const ogImagenAbsoluta = new URL(ogImagen, Astro.site).toString();
     <slot />
   </main>
   <Footer />
+  <dialog id="command-palette" class="command-palette">
+    <div class="command-palette-overlay"></div>
+    <div class="command-palette-container">
+      <input 
+        id="command-palette-input" 
+        class="command-palette-input" 
+        type="text" 
+        placeholder="Buscar páginas, proyectos, bitácora…"
+        autocomplete="off"
+      />
+      <ul id="command-palette-results" class="command-palette-results"></ul>
+    </div>
+  </dialog>
+  <div class="cursor-magnetico" aria-hidden="true"></div>
   <dialog id="dialogo-captura" class="dialogo-imagen">
     <div class="contenido-dialogo">
       <header class="encabezado-dialogo">
@@ -91,5 +105,9 @@ const ogImagenAbsoluta = new URL(ogImagen, Astro.site).toString();
   </dialog>
   <script src="/js/revelar.js" defer></script>
   <script src="/js/lightbox.js" defer></script>
+  <script src="/js/cursor-magnetico.js" defer></script>
+  <script src="/js/command-palette.js" defer></script>
+  <script src="/js/card-tilt.js" defer></script>
+  <script src="/js/confetti.js" defer></script>
 </body>
 </html>

@@ -14,6 +14,9 @@ const ENTRADAS_PUBLICADAS = [
     "etiquetas": [
       "presencia",
       "aprendizaje"
+    ],
+    "imagenes": [
+      "/capturas/gatitu1.jpg"
     ]
   },
   {
@@ -23,7 +26,10 @@ const ENTRADAS_PUBLICADAS = [
     "fechaCreacion": "2026-07-27T12:00:00.000",
     "etiquetas": [
       "scout",
-      "aprendizaje"
+      "aprendizaje" 
+    ],
+    "imagenes": [
+      "/capturas/3mew.jpg"
     ]
   },
   {

@@ -139,6 +139,36 @@ html.js .revelar:not(.visible) {
   flex-wrap: wrap;
 }
 
+/* Burbuja de la portada: cápsula desplegable para la nota etimológica de "programa". */
+.burbuja-portada {
+  margin-top: 24px;
+  max-width: 62ch;
+  background-color: var(--cream-card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 4px 20px;
+}
+
+.burbuja-portada summary {
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 600;
+  color: var(--torii-dark);
+  list-style-position: inside;
+}
+
+.burbuja-portada[open] summary {
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.burbuja-portada p,
+.burbuja-portada li {
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
 /* Fila de pastillas al pie de una tarjeta de catálogo. */
 .pastillas {
   display: flex;
@@ -556,6 +586,27 @@ html.js .revelar:not(.visible) {
   border-top-left-radius: 4px;
   box-shadow: var(--sombra-1);
   padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "fecha  fecha"
+    "titulo titulo"
+    "texto  imgs"
+    "chips  chips";
+  column-gap: 20px;
+}
+.fecha-burbuja { grid-area: fecha; }
+.titulo-burbuja { grid-area: titulo; }
+.contenido-burbuja { grid-area: texto; }
+.imagenes-burbuja { grid-area: imgs; }
+.chips-etiquetas { grid-area: chips; }
+
+/* Móvil: todo en una sola columna, imágenes debajo del texto. */
+@media (max-width: 560px) {
+  .burbuja-entrada {
+    grid-template-columns: 1fr;
+    grid-template-areas: "fecha" "titulo" "texto" "imgs" "chips";
+  }
 }
 
 .fecha-burbuja {
@@ -982,4 +1033,167 @@ button:focus-visible,
 .boton-secundario:focus-visible {
   outline: 2px solid var(--torii);
   outline-offset: 2px;
+}
+
+/* ---- Cursor magnético: punto torii que sigue el mouse y se engancha a botones. ---- */
+.cursor-magnetico {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background-color: var(--torii);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  left: calc(var(--cursor-x, 0) * 1px);
+  top: calc(var(--cursor-y, 0) * 1px);
+  transform: translate(-50%, -50%);
+  mix-blend-mode: multiply;
+  opacity: 0.7;
+  transition: opacity var(--transicion-rapida);
+}
+html.js .cursor-magnetico {
+  opacity: 1;
+}
+
+/* ---- Command palette: diálogo modal para búsqueda de rutas y entradas. ---- */
+.command-palette {
+  all: revert;
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+.command-palette[open] {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 20vh;
+}
+.command-palette-overlay {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--ink) 30%, transparent);
+  z-index: 0;
+}
+.command-palette-container {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 500px;
+  background: var(--cream-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radio-grande);
+  box-shadow: var(--sombra-flotante);
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+}
+.command-palette-input {
+  padding: 16px 20px;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  font-size: 1rem;
+  font-family: var(--fuente-cuerpo);
+  color: var(--ink);
+  background: transparent;
+}
+.command-palette-input:focus {
+  outline: none;
+  border-bottom-color: var(--torii);
+}
+.command-palette-results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+.command-palette-results li {
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+.command-palette-results li:last-child {
+  border-bottom: none;
+}
+.command-palette-results li:hover,
+.command-palette-results li[aria-selected="true"] {
+  background: var(--cream-sunk);
+}
+.command-palette-results li > div:first-child {
+  font-weight: 600;
+  color: var(--ink);
+}
+.command-palette-results li > div:last-child {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+/* ---- Tilt 3D en tarjetas: perspectiva que sigue el mouse. ---- */
+.tarjeta {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  transform: perspective(1000px) rotateX(var(--tilt-y)) rotateY(var(--tilt-x));
+}
+.tarjeta:hover {
+  transform: perspective(1000px) rotateX(var(--tilt-y)) rotateY(var(--tilt-x)) translateY(-2px);
+}
+.tarjeta-destacada {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  transform: perspective(1000px) rotateX(var(--tilt-y)) rotateY(var(--tilt-x));
+}
+.tarjeta-destacada:hover {
+  transform: perspective(1000px) rotateX(var(--tilt-y)) rotateY(var(--tilt-x)) translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta { --tilt-x: 0deg; --tilt-y: 0deg; }
+  .tarjeta-destacada { --tilt-x: 0deg; --tilt-y: 0deg; }
+}
+
+/* ---- Variantes de animación de entrada al scroll. ---- */
+@keyframes revelar-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes revelar-scale {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes revelar-slide {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes revelar-clip {
+  from { clip-path: inset(0 100% 0 0); opacity: 0; }
+  to { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+
+.revelar--fade.visible {
+  animation: revelar-fade var(--transicion-lenta) ease-out forwards;
+}
+.revelar--scale.visible {
+  animation: revelar-scale var(--transicion-lenta) ease-out forwards;
+}
+.revelar--slide.visible {
+  animation: revelar-slide var(--transicion-lenta) ease-out forwards;
+}
+.revelar--clip.visible {
+  animation: revelar-clip var(--transicion-lenta) ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revelar--fade.visible,
+  .revelar--scale.visible,
+  .revelar--slide.visible,
+  .revelar--clip.visible {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
 }

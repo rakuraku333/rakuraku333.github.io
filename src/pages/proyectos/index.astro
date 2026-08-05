@@ -17,7 +17,7 @@ import Base from '../../layouts/Base.astro';
     <p class="meta">4 apps disponibles</p>
     <div class="rejilla rejilla--2">
       <a class="tarjeta revelar" href="/gastos/">
-        <span class="captura-marco">
+        <span class="captura-marco" transition:name="captura-gastos">
           <img src="/capturas/rakucash-dashboard.png" alt="Dashboard de rakucash con saldo, ingresos, egresos y gastos por categoría" loading="lazy">
         </span>
         <h3>rakucash</h3>
@@ -28,7 +28,7 @@ import Base from '../../layouts/Base.astro';
         </div>
       </a>
       <a class="tarjeta revelar" href="/waveforge/">
-        <span class="captura-marco">
+        <span class="captura-marco" transition:name="captura-waveforge">
           <img src="/capturas/waveforge-torii.jpg" alt="Torii wireframe girando, renderizado en tiempo real contra un ocaso synthwave" loading="lazy">
         </span>
         <h3>waveforge</h3>
@@ -38,7 +38,7 @@ import Base from '../../layouts/Base.astro';
         </div>
       </a>
       <a class="tarjeta revelar" href="/habitos/">
-        <span class="captura-marco">
+        <span class="captura-marco" transition:name="captura-habitos">
           <img src="/capturas/habitos-dashboard.png" alt="Ranking del mes y hábitos con racha diaria" loading="lazy">
         </span>
         <h3>hábitos</h3>
@@ -49,7 +49,7 @@ import Base from '../../layouts/Base.astro';
         </div>
       </a>
       <a class="tarjeta revelar" href="/pilates/">
-        <span class="captura-marco">
+        <span class="captura-marco" transition:name="captura-pilates">
           <img src="/capturas/pilates-biblioteca.webp" alt="Biblioteca de ejercicios de Pilates Base" loading="lazy">
         </span>
         <h3>pilates</h3>

@@ -10,3 +10,7 @@ proyecto-rakudotcom.md
 node_modules/
 dist/
 .astro/
+
+# Herramienta personal de edición en vivo (nunca se commitea)
+public/js/modmenu.js
+modmenu-server.mjs

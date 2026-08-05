@@ -19,7 +19,8 @@ function iniciarRevelar() {
         // así una fila de tarjetas entra en cascada en vez de todas juntas.
         const indice = [...entrada.target.parentElement.children].indexOf(entrada.target);
         entrada.target.style.transitionDelay = `${Math.min(indice, 6) * 60}ms`;
-        entrada.target.classList.add('visible');
+        const variante = entrada.target.dataset.revealVariant || 'fade';
+        entrada.target.classList.add('visible', `revelar--${variante}`);
         observador.unobserve(entrada.target);
       }
     },
